@@ -20,7 +20,7 @@ def main():
         '3. Visualisation': "You can see all elements of  Phone book and some more information about it",
         '4. Search' : 'Searching over phone book by one or several fields',
         '5. Get the age of the person': "You can get the actual age of the person",
-        '6. Update data': "You can change the name of person",
+        '6. Change data': "You can change the information about existing person",
         '7. Get number': "You can get the phone number of the person",
         '8. Delete person': 'You can delete a record about the person'
         }
@@ -46,9 +46,10 @@ def main():
 
         elif command == '2':
             func.cls()
-            print('Enter your data (Name Surname:Number:Date of birth(if you want)')
+            print('Enter your data about person. The format of data is ' + color.BOLD +
+                  'Name Surname:Number:Date of birth(if you want)'+ color.END)
             print('Date of birth format: XX/XX/XXXX')
-            print('Example: Alex Bystov:89100000000:01/04/1999',end = ' ')
+            print('Example: Alex Bystov:89100000000:01/04/1999',end=' ')
             name, number, date = input().replace('\n', ':').split(':')
             while func.number_check(number) == 0:
                 print("Please try again, enter only number:", end=' ')
@@ -66,13 +67,14 @@ def main():
             ob1, ob2, ob3, ob4 = input().split()
             func.search(phone_book, ob1, ob2, ob3, ob4)
 
-        elif command == 'Get the age of the person':
-            print('Choose the name and surname please: ')
+        elif command == '5':
+            print('Choose the name and surname please.')
+            print('Example: Alex Bystov', end=' ')
             name = input()
-            surname = input()
-            print('The actual age of ' + name + ' ' + surname + ' is ' + str(how_many_years(d, name, surname)))
+            func.age_of_the_person(phone_book, name)
 
-        elif command == 'Change':
+
+        elif command == '6':
             print("Choose the old name please:")
             old_name = input()
             print('Choose the new name please:')
@@ -86,14 +88,17 @@ def main():
             number = input()
             change_ph_number(d, name, number)
 
-        elif command == 'Get number':
-            print("Choose the name, which number you want to know please :")
+        elif command == '7':
+            print("Choose the name and surname, which number you want to know please :")
+            print('Example: Alex Bystov', end=' ')
             name = input()
-            print("This is number: "+get_ph_number(d, name)+" of "+str(name))
+            func.get_ph_number(phone_book, name)
 
-        elif command == 'Delete person':
+        elif command == '8':
+            print("Choose the name and surname, which  you want to delete please :")
+            print('Example: Alex Bystov', end=' ')
             name = input()
-            del_person(d, name)
+            func.del_person(phone_book, name)
 
     with open('surname_numbers.txt', 'w') as out:
         for key, (number, date) in phone_book.items():

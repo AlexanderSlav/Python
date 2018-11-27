@@ -154,24 +154,36 @@ def visualisation(phone_book):
         print("This is  our phone book")
         print("Output format is Name Surname:Number:Date of birth(if exists)")
         print("Date of birth format: XX/XX/XXXX\n")
-        for name, value in phone_book.items():
+        for name, *value in phone_book.items():
             if len(value) != 1:
                 print(name, value[0], value[1], sep=':')
             else:
                 print(name, value[0], sep=':')
 
 
-def how_many_years(phone_book, name, surname):
-    for key, (number, date) in phone_book.items():
-        if key.split()[0] == name and key.split()[1] == surname:
-              date_birth_year = date.split('/')[2]
-              actual_age_in_years = 2018 - int(date_birth_year)
-              return actual_age_in_years
+def age_of_the_person(phone_book, name):
+    if name not in phone_book:
+        print("Sorry, we don't have this person in our phone book")
+    elif len(phone_book[name]) == 1:
+        print("We haven't information about person's birthday")
+    else:
+        today = date.today()
+
+        split_date = phone_book[name][1].split('/')
+        born_year = int(split_date[2])
+        born_month = int(split_date[1])
+        born_day = int(split_date[0])
+
+        age = today.year - born_year - ((today.month, today.day) < (born_month, born_day))
+        print('The age of the person: {} years'.format(age))
+
+
 
 
 def del_person(phone_book, name):
     if name in phone_book:
         del phone_book[name]
+        print('{} was deleted from your phone book'.format(name))
     else:
         print(color.RED + "We have not person with such name in Phone book"+ color.END)
 
