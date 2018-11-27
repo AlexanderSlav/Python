@@ -1,4 +1,3 @@
-import os
 import functions as func
 
 class color:
@@ -45,7 +44,6 @@ def main():
             break
 
         elif command == '2':
-            func.cls()
             print('Enter your data about person. The format of data is ' + color.BOLD +
                   'Name Surname:Number:Date of birth(if you want)'+ color.END)
             print('Date of birth format: XX/XX/XXXX')
@@ -59,11 +57,16 @@ def main():
                 date= input()
             func.add_persons(phone_book,name, number, date)
 
-        elif command == 'Visualisation':
-            func.cls()
+        elif command == '3':
             func.visualisation(phone_book)
 
-        elif command == 'Search':
+        elif command == '4':
+            print("The format of search is simple, you have 4 parameters to search \n"
+                  "Name Surname Number Date \n" 
+                  "1. You can search by name, you should enter: Name _ _ _ \n"
+                  "2. You can search by surname, you should enter: _ Surname _ _\n"
+                  "3. You can search by number, you should enter: _ _ Number _\n"
+                  "4. You can search by date, you should enter: _ _ _ Date\n")
             ob1, ob2, ob3, ob4 = input().split()
             func.search(phone_book, ob1, ob2, ob3, ob4)
 
@@ -89,14 +92,16 @@ def main():
             change_ph_number(d, name, number)
 
         elif command == '7':
-            print("Choose the name and surname, which number you want to know please :")
-            print('Example: Alex Bystov', end=' ')
+            print("Choose the name and surname, which number you want to know please.")
+            print('Example: Alex Bystov.')
+            print('Enter your data here:', end=' ')
             name = input()
             func.get_ph_number(phone_book, name)
 
         elif command == '8':
-            print("Choose the name and surname, which  you want to delete please :")
-            print('Example: Alex Bystov', end=' ')
+            print("Choose the name and surname, which  you want to delete please.")
+            print('Example: Alex Bystov.')
+            print('Enter your data here:', end=' ')
             name = input()
             func.del_person(phone_book, name)
 
