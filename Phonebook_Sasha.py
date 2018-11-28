@@ -90,8 +90,17 @@ def main():
                 name = input()
                 func.change_name(phone_book, name)
             if choice =='2':
-                pass
-
+                print('Choose the name and surname, which number you want to change.')
+                print('Example: Alex Bystov.')
+                print('Enter your data here:', end=' ')
+                name = input()
+                func.change_number(phone_book, name)
+            if choice == '3':
+                print('Choose the name and surname, which date of birthday you want to change.')
+                print('Example: Alex Bystov.')
+                print('Enter your data here:', end=' ')
+                name = input()
+                func.change_date(phone_book, name)
 
         elif command == '7':
             print('Choose the name and surname, which number you want to know please.')

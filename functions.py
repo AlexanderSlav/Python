@@ -188,7 +188,6 @@ def get_ph_number(phone_book, name):
         print("This is number: " + str(phone_book[name][0]) + " of " + str(name))
 
 
-
 def change_name(phone_book,full_name):
   if full_name not in phone_book:
       print('Sorry, we have not such person in our Phone book')
@@ -206,3 +205,33 @@ def change_name(phone_book,full_name):
 
       phone_book[new_name] = phone_book.pop(full_name)
       print('The name was successfully changed!')
+
+
+def change_number(phone_book, name):
+    if name not in phone_book:
+        print('Sorry, we have not such person in our Phone book')
+    else:
+        print('Please, enter new number')
+        print('Example: 89101418745')
+        print('Write it here:', end=' ')
+        new_number = input()
+        while number_check(new_number) == 0:
+            print("Please try again, enter only number:", end=' ')
+            new_number = input()
+        phone_book[name][0] = new_number
+
+
+def change_date(phone_book, name):
+    if name not in phone_book:
+        print('Sorry, we have not such person in our Phone book')
+    else:
+        print('Please, enter new date of birthday')
+        print('Example: 12/11/1987')
+        print('Write it here:', end=' ')
+        new_date = input()
+        while date_check(new_date) == 0:
+            print("Please try again,enter only date:", end=' ')
+            new_date = input()
+        phone_book[name][1] = new_date
+        print('The date was successfully changed!')
+
