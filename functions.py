@@ -13,6 +13,38 @@ class color:
    END = '\033[0m'
 
 
+def name_check_search(ob1):
+    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
+    for x in punctuation_marks:
+        if x in ob1:
+            print('Name and surname should not contain punctuation marks')
+            return 0
+    if ob1 == '':
+        print('Nothing was entered.Name and surname must contain at least one symbol')
+        return 0
+    if ob1.isdigit() is True:
+        print('Name must contain at least one letter')
+        return 0
+    ob1 = ob1.title()
+    return ob1
+
+
+def surname_check_search(ob2):
+    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
+    for x in punctuation_marks:
+        if x in ob2:
+            print('Name and surname should not contain punctuation marks')
+            return 0
+    if ob2 == '':
+        print('Nothing was entered.Name and surname must contain at least one symbol')
+        return 0
+    if ob2.isdigit() is True:
+        print('Name must contain at least one letter')
+        return 0
+    ob2 = ob2.title()
+    return ob2
+
+
 def name_check(name):
     punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
     for x in punctuation_marks:
@@ -40,6 +72,10 @@ def date_check(date):
     if date == '':
         return 1
     date = date.split('/')
+    if len(date) != 3:
+        print('The wrong format of date, please try again')
+        print('Example: Alex Bystov:89100000000:01/04/1999')
+        return 0
     amount_of_days = {
         '01': '31',
         '02': '28',
@@ -81,7 +117,7 @@ def number_check(number):
 
 def add_persons(phone_book, name, number, date):
     case = 0
-    name_2, number_2, date_2 = '','',''
+    name_2, number_2, date_2 = '', '', ''
     for key in phone_book.keys():
         if key.split()[0] == name.split()[0] and key.split()[1] == name.split()[1]:
             print("We already have such person in our Phonebook.\n"
@@ -91,7 +127,7 @@ def add_persons(phone_book, name, number, date):
             print("Choose the number of the command:")
             command_add = input()
             if command_add == "1":
-                print('The data about existing person:' , *phone_book[key])
+                print('The data about existing person:', *phone_book[key])
                 print('If you want to change number press  1 \n'
                       'If you want to change date of birthday press 2 \n')
                 change_n = input()
@@ -127,37 +163,37 @@ def add_persons(phone_book, name, number, date):
 
 def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
     # SEARCH BY NAME
-    if ob1 != "No" and (ob2 == "No" and ob3 == "No" and ob4 == "No"):
-       for key, (number, date) in d.items():
-           if key.split()[0] == ob1:
-              print(key, number, date)
+    if ob1 != "_" and (ob2 == "_" and ob3 == "_" and ob4 == "_"):
+        for key, value in d.items():
+            if key.split()[0] == ob1:
+                print(key, *value)
 
     # SEARCH BY SURNAME
-    if ob2 != "No" and (ob1 == "No" and ob3 == "No" and ob4 == "No"):
-       for key, (number, date) in d.items():
-           if key.split()[1] == ob2:
-              print(key, number, date)
+    if ob2 != "_" and (ob1 == "_" and ob3 == "_" and ob4 == "_"):
+        for key, (number, date) in d.items():
+            if key.split()[1] == ob2:
+                print(key, number, date)
 
     # SEARCH BY PHONE NUMBER
-    if ob3 != "No" and (ob1 == "No" and ob2 == "No" and ob4 == "No"):
+    if ob3 != "_" and (ob1 == "_" and ob2 == "_" and ob4 == "_"):
         for key, (number, date) in d.items():
             if number == ob3:
                 print(key, number, date)
 
     # SEARCH BY DATE OF BIRTHDAY
-    if ob4 != "No" and (ob1 == "No" and ob2 == "No" and ob3 == "No"):
+    if ob4 != "_" and (ob1 == "_" and ob2 == "_" and ob3 == "_"):
         for key, (number, date) in d.items():
             if date == ob4:
                 print(key, number, date)
 
     # SEARCH BY FULL NAME
-    if ob1 != "No" and ob2 != "No" and (ob3 == "No" and ob4 == "No"):
+    if ob1 != "_" and ob2 != "_" and (ob3 == "_" and ob4 == "_"):
         for key, (number, date) in d.items():
             if key.split()[0] == ob1 or key.split()[1] == ob2 :
                 print(key, number, date)
 
     # SEARCH BY DATE AND SURNAME
-    if ob4 != "No" and ob2 != "No"  and (ob3 == "No" and ob1 == "No"):
+    if ob4 != "_" and ob2 != "_"  and (ob3 == "_" and ob1 == "_"):
         for key, (number, date) in d.items():
             if key.split()[1] == ob2:
                 print(key, number, date)
@@ -202,7 +238,7 @@ def del_person(phone_book, name):
 
 def get_ph_number(phone_book, name):
     if name in phone_book:
-        print("This is number: " + str(phone_book[name][0]) + " of " + str(name))
+        print("This is number: " + str(phone_book[name][0]) + " of " + name)
 
 
 def change_name(phone_book,full_name):

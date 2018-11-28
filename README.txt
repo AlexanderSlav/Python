@@ -1,1 +1,1 @@
-This is my text
+This is my repository wwith homework and funny things
