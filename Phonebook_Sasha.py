@@ -12,6 +12,7 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+
 def main():
     command_list = {
         '1. Stop': "If you want to stop using our Phone book, you should use this command",
@@ -28,9 +29,8 @@ def main():
 
     with open("surname_numbers.txt") as file:
         for line in file:
-            key, *value = line.split(':')
-            phone_book[key] = value[0:len(value)-1]
-    # The visualisation of  available commands
+            key, *value = line.replace('\n', ':').split(':')
+            phone_book[key] = value[:-1]
 
     print('Enter the command, please:')
 
@@ -47,14 +47,27 @@ def main():
                   'Name Surname:Number:Date of birth(if you want)'+ color.END)
             print('Date of birth format: XX/XX/XXXX')
             print('Example: Alex Bystov:89100000000:01/04/1999',end=' ')
-            name, number, date = input().replace('\n', ':').split(':')
-            while func.number_check(number) == 0:
+            name, *value = input().replace('\n', ':').split(':')
+            if len(value) > 1:
+                number = value[0]
+                date = value[1]
+            else:
+               number = value[0]
+               date = ''
+            if func.number_check(number) == 0:
                 print("Please try again, enter only number:", end=' ')
                 number = input()
+            else:
+                number = func.number_check(number)
             while func.date_check(date) == 0:
                 print("Please try again,enter only date:", end=' ')
-                date= input()
-            func.add_persons(phone_book,name, number, date)
+                date = input()
+            if func.name_check(name) == 0:
+                print("Please try again,enter name and surname:", end=' ')
+                name = input()
+            else:
+                name = func.number_check(name)
+            func.add_persons(phone_book,name,number, date)
 
         elif command == '3':
             func.visualisation(phone_book)
@@ -90,18 +103,27 @@ def main():
                 print('Example: Alex Bystov.')
                 print('Enter your data here:', end=' ')
                 name = input()
+                while func.name_check(name) == 0:
+                    print("Please try again,enter name and surname:", end=' ')
+                    name = input()
                 func.change_name(phone_book, name)
-            if choice =='2':
+            if choice == '2':
                 print('Choose the name and surname, which number you want to change.')
                 print('Example: Alex Bystov.')
                 print('Enter your data here:', end=' ')
                 name = input()
+                while func.name_check(name) == 0:
+                    print("Please try again,enter name and surname:", end=' ')
+                    name = input()
                 func.change_number(phone_book, name)
             if choice == '3':
                 print('Choose the name and surname, which date of birthday you want to change.')
                 print('Example: Alex Bystov.')
                 print('Enter your data here:', end=' ')
                 name = input()
+                while func.name_check(name) == 0:
+                    print("Please try again,enter name and surname:", end=' ')
+                    name = input()
                 func.change_date(phone_book, name)
 
         elif command == '7':

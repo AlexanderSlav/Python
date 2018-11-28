@@ -14,7 +14,7 @@ class color:
 
 
 def name_check(name):
-    punctuation_marks = ['!','.',',','/',';',':']
+    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
     for x in punctuation_marks:
         if x in name:
             print('Name and surname should not contain punctuation marks')
@@ -25,9 +25,8 @@ def name_check(name):
     if name.split()[0].isdigit() is True or name.split()[1].isdigit() is True:
         print('Name and surname must contain at least one letter')
         return 0
-
     name = name.title()
-
+    return name
 
 
 
@@ -37,8 +36,9 @@ def visualisation_of_commands(command_list):
         print(key, ' - ', values)
 
 
-
 def date_check(date):
+    if date == '':
+        return 1
     date = date.split('/')
     amount_of_days = {
         '01': '31',
@@ -77,7 +77,7 @@ def number_check(number):
     if number.isdigit() is False:
         print("The number must consist of only digits")
     else :
-        return 1
+        return number
 
 def add_persons(phone_book, name, number, date):
     case = 0
@@ -176,7 +176,7 @@ def visualisation(phone_book):
 def age_of_the_person(phone_book, name):
     if name not in phone_book:
         print("Sorry, we don't have this person in our phone book")
-    elif len(phone_book[name]) == 1:
+    elif phone_book[name][1] == '':
         print("We haven't information about person's birthday")
     else:
         today = date.today()
