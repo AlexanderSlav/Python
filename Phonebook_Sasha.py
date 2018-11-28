@@ -46,7 +46,7 @@ def main():
             print('Enter your data about person. The format of data is ' + color.BOLD +
                   'Name Surname:Number:Date of birth(if you want)' + color.END)
             print('Date of birth format: XX/XX/XXXX')
-            print('Example: Alex Bystov:89100000000:01/04/1999',end=' ')
+            print('Example: Alex Bystov:89100000000:01/04/1999', end=' ')
             name, *value = input().replace('\n', ':').split(':')
             if len(value) > 1:
                 number = value[0]
@@ -85,10 +85,10 @@ def main():
                     print("To search by Number, you should enter: _ _ Number _", end=' ')
                     ob3 = input()
             if ob4 != '_':
-                while func.number_check(ob3) == 0:
+                while func.date_check(ob4) == 0:
                     print("Please try again")
                     print("To search by Date, you should enter: _ _ _ Date", end=' ')
-                    ob3 = input()
+                    ob4 = input()
             if ob1 != '_':
                 while func.name_check_search(ob1) == 0:
                     print("Please try again")

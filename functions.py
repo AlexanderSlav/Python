@@ -162,41 +162,54 @@ def add_persons(phone_book, name, number, date):
 
 
 def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
+    flag = False
     # SEARCH BY NAME
     if ob1 != "_" and (ob2 == "_" and ob3 == "_" and ob4 == "_"):
         for key, value in d.items():
             if key.split()[0] == ob1:
                 print(key, *value)
+                flag = True
 
     # SEARCH BY SURNAME
     if ob2 != "_" and (ob1 == "_" and ob3 == "_" and ob4 == "_"):
-        for key, (number, date) in d.items():
+        for key, value in d.items():
             if key.split()[1] == ob2:
-                print(key, number, date)
-
+                print(key, *value)
+                flag = True
     # SEARCH BY PHONE NUMBER
     if ob3 != "_" and (ob1 == "_" and ob2 == "_" and ob4 == "_"):
-        for key, (number, date) in d.items():
-            if number == ob3:
-                print(key, number, date)
+        for key, value in d.items():
+            if value[0] == ob3:
+                print(key, *value)
+                flag = True
+
+
 
     # SEARCH BY DATE OF BIRTHDAY
     if ob4 != "_" and (ob1 == "_" and ob2 == "_" and ob3 == "_"):
-        for key, (number, date) in d.items():
-            if date == ob4:
-                print(key, number, date)
+         for key, value in d.items():
+            if len(value) > 1:
+                if value[1] == ob4:
+                    print(key, *value)
+                    flag = True
+
 
     # SEARCH BY FULL NAME
     if ob1 != "_" and ob2 != "_" and (ob3 == "_" and ob4 == "_"):
-        for key, (number, date) in d.items():
-            if key.split()[0] == ob1 or key.split()[1] == ob2 :
-                print(key, number, date)
+        for key, value in d.items():
+            if key.split()[0] == ob1 and key.split()[1] == ob2:
+                print(key, *value)
+                flag = True
 
     # SEARCH BY DATE AND SURNAME
     if ob4 != "_" and ob2 != "_"  and (ob3 == "_" and ob1 == "_"):
-        for key, (number, date) in d.items():
-            if key.split()[1] == ob2:
-                print(key, number, date)
+        for key, value in d.items():
+            if len(value) > 1:
+                if value[1] == ob4 and key.split()[1] == ob2:
+                    print(key, *value)
+                    flag = True
+    if not flag:
+        print('Sorry, Nothing was found')
 
 def visualisation(phone_book):
         print("This is  our phone book")
