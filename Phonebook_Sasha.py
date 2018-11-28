@@ -33,14 +33,13 @@ def main():
     # The visualisation of  available commands
 
     print('Enter the command, please:')
-    flag = True
-    while flag:
+
+    while True:
         print('Welcome to our phone book!')
         func.visualisation_of_commands(command_list)
         print("Enter the number of the  command, please:", end=' ')
         command = input()
         if command == '1':
-            flag = False
             break
 
         elif command == '2':
@@ -78,21 +77,24 @@ def main():
 
 
         elif command == '6':
-            print("Choose the old name please:")
-            old_name = input()
-            print('Choose the new name please:')
-            new_name = input()
-            change_name(d, old_name, new_name)
+            print('What data do you want to change?')
+            print('1. Name and surname')
+            print('2. Number')
+            print('3. Date of birthday')
+            print('Enter the number of the command here:', end=' ')
+            choice = input()
+            if choice == '1':
+                print('Choose the name and surname, which you want to change.')
+                print('Example: Alex Bystov.')
+                print('Enter your data here:', end=' ')
+                name = input()
+                func.change_name(phone_book, name)
+            if choice =='2':
+                pass
 
-        elif command == 'Change number':
-            print('Choose the name please:')
-            name = input()
-            print('Enter the new phone number:')
-            number = input()
-            change_ph_number(d, name, number)
 
         elif command == '7':
-            print("Choose the name and surname, which number you want to know please.")
+            print('Choose the name and surname, which number you want to know please.')
             print('Example: Alex Bystov.')
             print('Enter your data here:', end=' ')
             name = input()

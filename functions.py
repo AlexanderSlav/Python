@@ -1,4 +1,3 @@
-import os
 from datetime import date
 
 class color:
@@ -19,9 +18,6 @@ def visualisation_of_commands(command_list):
     for key, values in command_list.items():
         print(key, ' - ', values)
 
-
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
 
 
 def date_check(date):
@@ -150,11 +146,10 @@ def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - nu
                 print(key, number, date)
 
 def visualisation(phone_book):
-        cls()
         print("This is  our phone book")
         print("Output format is Name Surname:Number:Date of birth(if exists)")
         print("Date of birth format: XX/XX/XXXX\n")
-        for name, *value in phone_book.items():
+        for name, value in phone_book.items():
             if len(value) != 1:
                 print(name, value[0], value[1], sep=':')
             else:
@@ -194,7 +189,20 @@ def get_ph_number(phone_book, name):
 
 
 
-def change(d,ch_number):
-    for key,value in d.items():
-        if key == name:
-            d[key] = new_number
+def change_name(phone_book,full_name):
+  if full_name not in phone_book:
+      print('Sorry, we have not such person in our Phone book')
+  else:
+      print('\nPlease, enter new name and surname')
+      print('Example: Alex Bystrov')
+      print('Input here:', end=' ')
+      new_name = input()
+      while new_name in phone_book:
+          print('Sorry, we already have such person in our Phone book\n')
+          print('Please, enter new name and surname')
+          print('Example: Alex Bystrov')
+          print('Input here:', end=' ')
+          new_name = input()
+
+      phone_book[new_name] = phone_book.pop(full_name)
+      print('The name was successfully changed!')
