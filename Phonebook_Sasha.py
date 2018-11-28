@@ -70,14 +70,14 @@ def main():
             func.visualisation(phone_book)
 
         elif command == '4':
-            print("The format of search is simple, you have 4 parameters to search \n"
+            print("Hy! Let's search for someone. You have 4 parameters to search \n"
                   "Name Surname Number Date \n" 
                   "1. You can search by Name, you should enter: Name _ _ _ \n"
                   "2. You can search by Surname, you should enter: _ Surname _ _\n"
                   "3. You can search by Number, you should enter: _ _ Number _\n"
                   "4. You can search by Birth Date, you should enter: _ _ _ Date\n")
             print('Example: Petr _ _ _')
-            print('Enter your data:',end=' ')
+            print('Enter your data:', end=' ')
             ob1, ob2, ob3, ob4 = input().split()
             if ob3 != '_':
                 while func.number_check(ob3) == 0:
