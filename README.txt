@@ -1,1 +1,1 @@
-This is my repository wwith homework and funny things
+This is my repository with homework and funny things
