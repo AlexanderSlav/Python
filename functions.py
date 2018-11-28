@@ -13,6 +13,24 @@ class color:
    END = '\033[0m'
 
 
+def name_check(name):
+    punctuation_marks = ['!','.',',','/',';',':']
+    for x in punctuation_marks:
+        if x in name:
+            print('Name and surname should not contain punctuation marks')
+            return 0
+    if name == '':
+        print('Nothing was entered.Name and surname must contain at least one symbol')
+        return 0
+    if name.split()[0].isdigit() is True or name.split()[1].isdigit() is True:
+        print('Name and surname must contain at least one letter')
+        return 0
+
+    name = name.title()
+
+
+
+
 def visualisation_of_commands(command_list):
     print('The command list: ')
     for key, values in command_list.items():
@@ -105,7 +123,6 @@ def add_persons(phone_book, name, number, date):
     else:
         phone_book[name] = [number, date]
         print('Person was successfully added!')
-
 
 
 def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date

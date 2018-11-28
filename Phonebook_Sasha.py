@@ -73,8 +73,10 @@ def main():
             print('Choose the name and surname please.')
             print('Example: Alex Bystov', end=' ')
             name = input()
+            while func.name_check(name) == 0:
+                print("Please try again, enter name and surname:", end=' ')
+                name = input()
             func.age_of_the_person(phone_book, name)
-
 
         elif command == '6':
             print('What data do you want to change?')
