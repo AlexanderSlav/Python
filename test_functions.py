@@ -26,6 +26,8 @@ def test_name_check():
     assert func.name_check('_____ asdfasdfsdf _____') == 0
     assert func.name_check('____ _____') == 0
     assert func.name_check('Sasha1 Petrov') == 1
+    assert func.name_check('1asha1 2etrov') == 0
+    assert func.name_check('1asha1 petrov') == 0
 
 
 def test_number_check():
@@ -39,6 +41,17 @@ def test_number_check():
     assert func.number_check('8910 123123 123123') == 0
     assert func.number_check('+79101412356') == 1
     assert func.number_check('+7910141845+7') == 0
+    assert func.number_check('+7910141845+7') == 0
+
+
+def test_comparison_number_check():
+    assert func.comparison_number_check('123') == 1
+    assert func.comparison_number_check('0') == 1
+    assert func.comparison_number_check('-123213') == 0
+    assert func.comparison_number_check('') == 0
+    assert func.comparison_number_check('sdfasf') == 0
+    assert func.comparison_number_check('12/5') == 0
+    assert func.comparison_number_check('12.5') == 0
 
 
 
