@@ -1,16 +1,17 @@
 from datetime import date
 
+
 class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
+        PURPLE = '\033[95m'
+        CYAN = '\033[96m'
+        DARKCYAN = '\033[36m'
+        BLUE = '\033[94m'
+        GREEN = '\033[92m'
+        YELLOW = '\033[93m'
+        RED = '\033[91m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
+        END = '\033[0m'
 
 
 def name_check_search(ob1):
@@ -46,29 +47,23 @@ def surname_check_search(ob2):
 
 
 def name_check(name):
-    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
-    for x in punctuation_marks:
-        if x in name:
-            print('Name and surname should not contain punctuation marks')
-            return 0
-    if name == '':
-        print('Nothing was entered.Name and surname must contain at least one symbol')
+    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}','_']
+    if len(name.split()) != 2:
+        print('The wrong format of full name, you should enter Name and Surname  please try again')
+        print('Example: Alex Bystov')
         return 0
     if name.split()[0].isdigit() is True or name.split()[1].isdigit() is True:
         print('Name and surname must contain at least one letter')
         return 0
+    for x in punctuation_marks:
+        if x in name:
+            print('Name and surname should not contain punctuation marks')
+            return 0
     name = name.title()
     return name
 
 
 def date_check(date):
-    if date == '':
-        return 1
-    date = date.split('/')
-    if len(date) != 3:
-        print('The wrong format of date, please try again')
-        print('Example: Alex Bystov:89100000000:01/04/1999')
-        return 0
     amount_of_days = {
         '01': '31',
         '02': '28',
@@ -82,15 +77,32 @@ def date_check(date):
         '10': '31',
         '11': '30',
         '12': '31',
-        }
-    if int(date[1]) > 12 or int(date[1]) < 0:
+    }
+    if date == '':
+        return 1
+
+    date = date.split('/')
+    if len(date) != 3:
+        print('The wrong format of date, please try again')
+        print('Example: Alex Bystov:89100000000:01/04/1999')
+        return 0
+    if date[0].isdigit() is False or date[1].isdigit() is False or date[2].isdigit() is False:
+        print('Wrong format of date, date must contain digits only,  please try again')
+        print('Date of birth format: XX/XX/XXXX')
+        return 0
+    if len(date[0]) != 2 or len(date[1]) != 2 :
+        print('Wrong format of date, please try again')
+        print('Date of birth format: XX/XX/XXXX')
+        return 0
+    if int(date[1]) > 12 or int(date[1]) <= 0:
         print("Wrong number of month, you can choose digit from 1 to 12 ")
         return 0
     if int(amount_of_days[date[1]]) < int(date[0]):
         print("Wrong amount of days, there is only: " + amount_of_days[date[1]] + " in this month")
         return 0
-    if int(date[0]) < 0:
+    if int(date[0]) <= 0:
         print("Number of day must be > 0")
+        return 0
     if int(date[2]) <= 0 :
         print("Year can not be lower than zero or equal to it")
         return 0
@@ -102,6 +114,7 @@ def number_check(number):
         number = number.replace('+7','8')
     if number.isdigit() is False:
         print("The number must not contain letters")
+        return 0
     if len(number) != 11 :
         print("The number must consist of 11 digits")
         return 0
@@ -127,8 +140,8 @@ def add_persons(phone_book, name, number, date):
                 print('The data about existing person:', *phone_book[name])
                 print('If you want to change number press: 1 \n'
                       'If you want to change date of birthday press: 2 \n')
+                print('Enter the command, please:', end='')
                 change_n = input()
-                print('Enter the command, please:')
                 if change_n == "1":
                     print('Please enter new number here:', end=' ')
                     new_number = input()
@@ -139,7 +152,11 @@ def add_persons(phone_book, name, number, date):
                     print('The phone number of {}  was successfully changed'.format(name))
                     return 0
                 if change_n == "2":
+                    print('Please enter new date of birth here:', end=' ')
                     new_date = input()
+                    while date_check(new_date) == 0:
+                        print("Please try again,enter new date:", end=' ')
+                        new_date = input()
                     phone_book[name][1] = new_date
                     return 0
             if command_add == "2":
@@ -157,7 +174,7 @@ def add_persons(phone_book, name, number, date):
         print('Person was successfully added!')
 
 
-def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
+def search(d, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
     flag = False
     # SEARCH BY NAME
     if ob1 != "_" and (ob2 == "_" and ob3 == "_" and ob4 == "_"):

@@ -1,3 +1,4 @@
+from tkinter import *
 import functions as func
 
 class color:
@@ -99,6 +100,7 @@ def main():
                     print("Please try again")
                     print("To search by Number, you should enter: _ _ Number _", end=' ')
                     ob3 = input()
+                ob3 = func.number_check(ob3)
             if ob4 != '_':
                 while func.date_check(ob4) == 0:
                     print("Please try again")
@@ -109,11 +111,13 @@ def main():
                     print("Please try again")
                     print("To search by Name, you should enter: Name _ _ _", end=' ')
                     ob1 = input()
+                ob1 = func.name_check(ob1)
             if ob2 != '_':
                 while func.name_check_search(ob2) == 0:
                     print("Please try again")
                     print("To search by Surname, you should enter: _ Surname _ _", end=' ')
                     ob2 = input()
+                ob2 = func.name_check(ob2)
 
             func.search(phone_book, ob1, ob2, ob3, ob4)
 
@@ -124,6 +128,7 @@ def main():
             while func.name_check(name) == 0:
                 print("Please try again, enter name and surname:", end=' ')
                 name = input()
+            name = func.name_check(name)
             func.age_of_the_person(phone_book, name)
 
         elif command == '6':
@@ -141,6 +146,7 @@ def main():
                 while func.name_check(name) == 0:
                     print("Please try again,enter name and surname:", end=' ')
                     name = input()
+                name = func.name_check(name)
                 func.change_name(phone_book, name)
             if choice == '2':
                 print('Choose the name and surname, which number you want to change.')
@@ -150,6 +156,7 @@ def main():
                 while func.name_check(name) == 0:
                     print("Please try again,enter name and surname:", end=' ')
                     name = input()
+                name = func.name_check(name)
                 func.change_number(phone_book, name)
             if choice == '3':
                 print('Choose the name and surname, which birth date you want to change.')
@@ -159,6 +166,7 @@ def main():
                 while func.name_check(name) == 0:
                     print("Please try again,enter name and surname:", end=' ')
                     name = input()
+                name = func.name_check(name)
                 func.change_date(phone_book, name)
 
         elif command == '7':
@@ -184,7 +192,6 @@ def main():
     with open('surname_numbers.txt', 'w') as out:
         for key, value in phone_book.items():
             out.write('{}:{}:{}\n'.format(key, *value))
-
 
 if __name__ == "__main__":
     main()
