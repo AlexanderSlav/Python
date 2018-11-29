@@ -304,7 +304,7 @@ def change_number(phone_book, name):
             print("Please try again, enter only number:", end=' ')
             new_number = input()
         if new_number[0] == '+' and new_number[1] == '7':
-            number = new_number.replace('+7', '8')
+            new_number = new_number.replace('+7', '8')
         phone_book[name][0] = new_number
 
 
