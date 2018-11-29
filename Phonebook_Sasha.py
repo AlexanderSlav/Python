@@ -16,17 +16,18 @@ class color:
 
 def main():
     command_list = {
-        '1. Stop': "If you want to stop using our Phone book, you should use this command",
-        '2. Add persons': "You can add persons to Phone book",
-        '3. Visualisation': "You can see all elements of  Phone book and some more information about it",
-        '4. Search' : 'Searching over phone book by one or several fields',
-        '5. Get the age of the person': "You can get the actual age of the person",
-        '6. Change data': "You can change the information about existing person",
-        '7. Get number': "You can get the phone number of the person",
-        '8. Delete person': 'You can delete a record about the person'
+        '1. Stop': 'If you want to stop using our Phone book, you should use this command',
+        '2. Add persons': 'You can add persons to Phone book',
+        '3. Visualisation': 'You can see all elements of  Phone book and some information about it',
+        '4. Search': 'Searching over phone book by one or several fields',
+        '5. Get the age of the person': 'You can get the actual age of the person',
+        '6. Change data': 'You can change the information about existing person',
+        '7. Get number': 'You can get the phone number of the person',
+        '8. Delete person': 'You can delete a record about the person',
+        '9. Compare age of persons': 'You can find out how many people are younger/older/equal than/to N years old.'
+                                     'You enter the parameter N'
         }
     phone_book = {}
-
 
     with open("surname_numbers.txt") as file:
         for line in file:
@@ -73,7 +74,7 @@ def main():
                 name = input()
             name = name.title()
             if number[0] == '+' and number[1] == '7':
-                number = number.replace('+7', '8')
+                number = number.replace('+7', '8',1)
             func.add_persons(phone_book, name, number, date)
 
         elif command == '3':
@@ -102,7 +103,7 @@ def main():
                     print("To search by Number, you should enter: _ _ Number _", end=' ')
                     ob3 = input()
                 if ob3[0] == '+' and ob3[1] == '7':
-                    ob3 = ob3.replace('+7', '8')
+                    ob3 = ob3.replace('+7', '8',1)
             if ob4 != '_':
                 while func.date_check(ob4) == 0:
                     print("Please try again")
@@ -131,7 +132,7 @@ def main():
                 print("Please try again, enter name and surname:", end=' ')
                 name = input()
             name = name.title()
-            func.age_of_the_person(phone_book, name)
+            func.age_of_the_person(phone_book, name, 0)
 
         elif command == '6':
             print('What data do you want to change?')
@@ -192,10 +193,26 @@ def main():
                 name = input()
             name = name.title()
             func.del_person(phone_book, name)
+        elif command == '9':
+            print('Please enter the age that you interested in (N):', end=' ')
+            comparison_number = input()
+            while func.comparison_number_check(comparison_number) == 0:
+                print('Wrong input fromat, please try again:', end='')
+                comparison_number = input()
+            print('Do you want to watch people younger(enter 1), older(enter 2) or equal(enter 3) than {}'.format(comparison_number))
+            print('Enter data here', end=' ')
+            parameter = input()
+            while parameter != '1' and parameter != '2' and parameter != '3':
+                print('Wrong input format, you should enter 1 or 2 or 3 ')
+                print('Example: 1')
+                print('Enter your parameter here:', end=' ')
+                parameter = input()
+            func.compare_by_age(phone_book, comparison_number, parameter)
 
     with open('surname_numbers.txt', 'w') as out:
         for key, value in phone_book.items():
             out.write('{}:{}:{}\n'.format(key, *value))
+
 
 if __name__ == "__main__":
     main()

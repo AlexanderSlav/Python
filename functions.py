@@ -14,14 +14,29 @@ class color:
         END = '\033[0m'
 
 
+# Проверка числа для сравнения всех записей словаря по возрасту
+def comparison_number_check(comparison_number):
+    if comparison_number == '':
+        print('Nothing was entered.The age number must contain at least one digit')
+        return 0
+    if comparison_number.isdigit() is False:
+        print('Ops, the age number must be a digit, it should not contain symbols')
+        return 0
+    if int(comparison_number) < 0:
+        print('The age number should be >= 0')
+        return 0
+    return 1
+
+
+# Специальная проверка имени для функции поиска
 def name_check_search(ob1):
     punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
     for x in punctuation_marks:
         if x in ob1:
-            print('Name and surname should not contain punctuation marks')
+            print('Name should not contain punctuation marks')
             return 0
     if ob1 == '':
-        print('Nothing was entered.Name and surname must contain at least one symbol')
+        print('Nothing was entered.Name  must contain at least one symbol')
         return 0
     if ob1.isdigit() is True:
         print('Name must contain at least one letter')
@@ -29,21 +44,23 @@ def name_check_search(ob1):
     return 1
 
 
+# Специальная проверка фамилии для функции поиска
 def surname_check_search(ob2):
     punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}']
     for x in punctuation_marks:
         if x in ob2:
-            print('Name and surname should not contain punctuation marks')
+            print('Surname should not contain punctuation marks')
             return 0
     if ob2 == '':
-        print('Nothing was entered.Name and surname must contain at least one symbol')
+        print('Nothing was entered.Surname must contain at least one symbol')
         return 0
     if ob2.isdigit() is True:
-        print('Name must contain at least one letter')
+        print('Surname must contain at least one letter')
         return 0
     return 1
 
 
+# Проверка полного имени (Имя,Фамилия) на корректность
 def name_check(name):
     punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}','_']
     if len(name.split()) != 2:
@@ -52,6 +69,10 @@ def name_check(name):
         return 0
     if name.split()[0].isdigit() is True or name.split()[1].isdigit() is True:
         print('Name and surname must contain at least one letter')
+        return 0
+    if not (name.split()[0][0].isalpha() and name.split()[1][0].isalpha()):
+        print('Name and Surname input mistake!')
+        print('The first symbols of Name and Surname should be letters!')
         return 0
     for x in punctuation_marks:
         if x in name:
@@ -108,11 +129,11 @@ def date_check(date):
 
 def number_check(number):
     if number[0] == '+' and number[1] == '7':
-        number = number.replace('+7','8')
+        number = number.replace('+7', '8', 1)
     if number.isdigit() is False:
         print("The number must not contain letters or symbols")
         return 0
-    if len(number) != 11 :
+    if len(number) != 11:
         print("The number must consist of 11 digits")
         return 0
     else :
@@ -195,8 +216,6 @@ def search(d, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 - number 
                 print(key, *value)
                 flag = True
 
-
-
     # SEARCH BY DATE OF BIRTHDAY
     if ob4 != "_" and (ob1 == "_" and ob2 == "_" and ob3 == "_"):
          for key, value in d.items():
@@ -204,7 +223,6 @@ def search(d, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 - number 
                 if value[1] == ob4:
                     print(key, *value)
                     flag = True
-
 
     # SEARCH BY FULL NAME
     if ob1 != "_" and ob2 != "_" and (ob3 == "_" and ob4 == "_"):
@@ -235,11 +253,14 @@ def visualisation(phone_book):
                 print(name, value[0], sep=':')
 
 
-def age_of_the_person(phone_book, name):
+def age_of_the_person(phone_book, name, flag):
     if name not in phone_book:
         print("Sorry, we don't have this person in our phone book")
+        return 0
     elif phone_book[name][1] == '':
-        print("We haven't information about person's birthday")
+        if flag == 0:
+            print("We haven't information about person's birthday")
+        return 0
     else:
         today = date.today()
 
@@ -249,7 +270,9 @@ def age_of_the_person(phone_book, name):
         born_day = int(split_date[0])
 
         age = today.year - born_year - ((today.month, today.day) < (born_month, born_day))
-        print('The age of the person: {} years'.format(age))
+        if flag == 0:
+            print('The age of the person: {} years'.format(age))
+        return age
 
 
 def del_person(phone_book, name):
@@ -321,4 +344,18 @@ def change_date(phone_book, name):
             new_date = input()
         phone_book[name][1] = new_date
         print('The date was successfully changed!')
+
+
+def compare_by_age(phone_book, comparison_number, parameter):
+    for person in phone_book:
+        if parameter == '1':
+            if age_of_the_person(phone_book, person, 1) < int(comparison_number):
+                print(person)
+        if parameter == '2':
+            if age_of_the_person(phone_book, person, 1) > int(comparison_number):
+                print(person)
+        if parameter == '3':
+            if age_of_the_person(phone_book, person, 1) == int(comparison_number):
+                print(person)
+
 
