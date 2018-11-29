@@ -256,11 +256,11 @@ def visualisation(phone_book):
 def age_of_the_person(phone_book, name, flag):
     if name not in phone_book:
         print("Sorry, we don't have this person in our phone book")
-        return 0
+        return -1
     elif phone_book[name][1] == '':
         if flag == 0:
             print("We haven't information about person's birthday")
-        return 0
+        return -1
     else:
         today = date.today()
 
@@ -347,15 +347,22 @@ def change_date(phone_book, name):
 
 
 def compare_by_age(phone_book, comparison_number, parameter):
+    flag = False
     for person in phone_book:
-        if parameter == '1':
-            if age_of_the_person(phone_book, person, 1) < int(comparison_number):
-                print(person)
-        if parameter == '2':
-            if age_of_the_person(phone_book, person, 1) > int(comparison_number):
-                print(person)
-        if parameter == '3':
-            if age_of_the_person(phone_book, person, 1) == int(comparison_number):
-                print(person)
+        if age_of_the_person(phone_book, person, 1) != -1:
+            if parameter == '1':
+                if age_of_the_person(phone_book, person, 1) < int(comparison_number):
+                    flag = True
+                    print(person)
+            if parameter == '2':
+                if age_of_the_person(phone_book, person, 1) > int(comparison_number):
+                    flag = True
+                    print(person)
+            if parameter == '3':
+                if age_of_the_person(phone_book, person, 1) == int(comparison_number):
+                    flag = True
+                    print(person)
+    if not flag:
+        print('Sorry,nothing was found')
 
 

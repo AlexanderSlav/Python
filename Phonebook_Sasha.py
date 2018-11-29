@@ -212,6 +212,8 @@ def main():
     with open('surname_numbers.txt', 'w') as out:
         for key, value in phone_book.items():
             out.write('{}:{}:{}\n'.format(key, *value))
+    print('Thank you for using our Phone book!')
+    print('We hope, we will see you again! Good Lick!')
 
 
 if __name__ == "__main__":
