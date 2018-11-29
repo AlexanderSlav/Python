@@ -26,8 +26,7 @@ def name_check_search(ob1):
     if ob1.isdigit() is True:
         print('Name must contain at least one letter')
         return 0
-    ob1 = ob1.title()
-    return ob1
+    return 1
 
 
 def surname_check_search(ob2):
@@ -42,14 +41,13 @@ def surname_check_search(ob2):
     if ob2.isdigit() is True:
         print('Name must contain at least one letter')
         return 0
-    ob2 = ob2.title()
-    return ob2
+    return 1
 
 
 def name_check(name):
     punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}','_']
     if len(name.split()) != 2:
-        print('The wrong format of full name, you should enter Name and Surname  please try again')
+        print('The wrong format of full name, you should enter Name and Surname.')
         print('Example: Alex Bystov')
         return 0
     if name.split()[0].isdigit() is True or name.split()[1].isdigit() is True:
@@ -59,8 +57,7 @@ def name_check(name):
         if x in name:
             print('Name and surname should not contain punctuation marks')
             return 0
-    name = name.title()
-    return name
+    return 1
 
 
 def date_check(date):
@@ -110,16 +107,16 @@ def date_check(date):
 
 
 def number_check(number):
-    if number[0] == '+':
+    if number[0] == '+' and number[1] == '7':
         number = number.replace('+7','8')
     if number.isdigit() is False:
-        print("The number must not contain letters")
+        print("The number must not contain letters or symbols")
         return 0
     if len(number) != 11 :
         print("The number must consist of 11 digits")
         return 0
     else :
-        return number
+        return 1
 
 
 def visualisation_of_commands(command_list):
@@ -148,6 +145,8 @@ def add_persons(phone_book, name, number, date):
                     while number_check(new_number) == 0:
                             print("Please try again, enter new number:", end=' ')
                             new_number = input()
+                    if new_number[0] == '+' and new_number[1] == '7':
+                        new_number = new_number.replace('+7', '8')
                     phone_book[name][0] = new_number
                     print('The phone number of {}  was successfully changed'.format(name))
                     return 0
@@ -165,7 +164,7 @@ def add_persons(phone_book, name, number, date):
                 while name_check(new_name) == 0:
                         print("Please try again,enter name and surname:", end=' ')
                         new_name = input()
-                new_name = name_check(new_name)
+                new_name = new_name.title()
                 add_persons(phone_book, new_name, number, date)
             if command_add == "3":
                 return 0
@@ -274,12 +273,20 @@ def change_name(phone_book,full_name):
         print('Example: Alex Bystrov')
         print('Input here:', end=' ')
         new_name = input()
+        while name_check(new_name) == 0:
+            print("Please try again,enter name and surname:", end=' ')
+            new_name = input()
+        new_name = new_name.title()
         while new_name in phone_book:
             print('Sorry, we already have such person in our Phone book\n')
             print('Please, enter new name and surname')
             print('Example: Alex Bystrov')
             print('Input here:', end=' ')
             new_name = input()
+            while name_check(new_name) == 0:
+                print("Please try again,enter name and surname:", end=' ')
+                new_name = input()
+            new_name = new_name.title()
 
         phone_book[new_name] = phone_book.pop(full_name)
         print('The name was successfully changed!')
@@ -296,6 +303,8 @@ def change_number(phone_book, name):
         while number_check(new_number) == 0:
             print("Please try again, enter only number:", end=' ')
             new_number = input()
+        if new_number[0] == '+' and new_number[1] == '7':
+            number = new_number.replace('+7', '8')
         phone_book[name][0] = new_number
 
 
