@@ -46,8 +46,14 @@ def main():
             print('Enter your data about person. The format of data is ' + color.BOLD +
                   'Name Surname:Number:Date of birth(if you want)' + color.END)
             print('Date of birth format: XX/XX/XXXX')
-            print('Example: Alex Bystov:89100000000:01/04/1999', end=' ')
-            name, *value = input().replace('\n', ':').split(':')
+            print('Example: Alex Bystrov:89100000000:01/04/1999', end=' ')
+            data = input().replace('\n', ':').split(':')
+            while len(data) < 2:
+                print('Wrong, format. You should enter at least full name and phone number.')
+                print('Example: Alex Bystov:89100000000:01/04/1999')
+                print('Please, try again here:', end=' ')
+                data = input().replace('\n', ':').split(':')
+            name, *value = data
             if len(value) > 1:
                 number = value[0]
                 date = value[1]
@@ -64,6 +70,8 @@ def main():
             while func.name_check(name) == 0:
                 print("Please try again,enter name and surname:", end=' ')
                 name = input()
+            name = func.name_check(name)
+            number = func.number_check(number)
             func.add_persons(phone_book, name, number, date)
 
         elif command == '3':
@@ -78,7 +86,14 @@ def main():
                   "4. You can search by Birth Date, you should enter: _ _ _ Date\n")
             print('Example: Petr _ _ _')
             print('Enter your data:', end=' ')
-            ob1, ob2, ob3, ob4 = input().split()
+            data = input().split()
+            while len(data) != 4:
+                print('Wrong, format. You should search by 4 parameters.')
+                print('Example: Petr _ _ _  or _ Slavutin _ _ _')
+                print('Please, try again here:', end=' ')
+                data = input().split()
+            ob1, ob2, ob3, ob4 = data[0], data[1], data[2], data[3]
+
             if ob3 != '_':
                 while func.number_check(ob3) == 0:
                     print("Please try again")
@@ -151,6 +166,9 @@ def main():
             print('Example: Alex Bystov.')
             print('Enter your data here:', end=' ')
             name = input()
+            while func.name_check(name) == 0:
+                print("Please try again,enter name and surname:", end=' ')
+                name = input()
             func.get_ph_number(phone_book, name)
 
         elif command == '8':
@@ -158,11 +176,14 @@ def main():
             print('Example: Alex Bystov.')
             print('Enter your data here:', end=' ')
             name = input()
+            while func.name_check(name) == 0:
+                print("Please try again,enter name and surname:", end=' ')
+                name = input()
             func.del_person(phone_book, name)
 
     with open('surname_numbers.txt', 'w') as out:
-        for key, (number, date) in phone_book.items():
-            out.write('{}:{}:{}:\n'.format(key, number, date))
+        for key, value in phone_book.items():
+            out.write('{}:{}:{}\n'.format(key, *value))
 
 
 if __name__ == "__main__":

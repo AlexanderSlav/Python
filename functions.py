@@ -61,13 +61,6 @@ def name_check(name):
     return name
 
 
-
-def visualisation_of_commands(command_list):
-    print('The command list: ')
-    for key, values in command_list.items():
-        print(key, ' - ', values)
-
-
 def date_check(date):
     if date == '':
         return 1
@@ -107,55 +100,58 @@ def date_check(date):
 def number_check(number):
     if number[0] == '+':
         number = number.replace('+7','8')
+    if number.isdigit() is False:
+        print("The number must not contain letters")
     if len(number) != 11 :
         print("The number must consist of 11 digits")
         return 0
-    if number.isdigit() is False:
-        print("The number must consist of only digits")
     else :
         return number
 
+
+def visualisation_of_commands(command_list):
+    print('The command list: ')
+    for key, values in command_list.items():
+        print(key, ' - ', values)
+
+
 def add_persons(phone_book, name, number, date):
-    case = 0
-    name_2, number_2, date_2 = '', '', ''
-    for key in phone_book.keys():
-        if key.split()[0] == name.split()[0] and key.split()[1] == name.split()[1]:
+    if name in phone_book:
             print("We already have such person in our Phonebook.\n"
                   "1 - You can change the data about an existing person\n"
                   "2 - Or you can change name or surname of your new record\n"
                   "3 - Back to menu\n")
-            print("Choose the number of the command:")
+            print("Choose the number of the command:", end=' ')
             command_add = input()
             if command_add == "1":
-                print('The data about existing person:', *phone_book[key])
-                print('If you want to change number press  1 \n'
-                      'If you want to change date of birthday press 2 \n')
+                print('The data about existing person:', *phone_book[name])
+                print('If you want to change number press: 1 \n'
+                      'If you want to change date of birthday press: 2 \n')
                 change_n = input()
+                print('Enter the command, please:')
                 if change_n == "1":
+                    print('Please enter new number here:', end=' ')
                     new_number = input()
                     while number_check(new_number) == 0:
-                        print("Phone number must consist of digits only, please try again:",end = ' ')
-                        new_number = input()
-                    phone_book[key][0] = new_number
+                            print("Please try again, enter new number:", end=' ')
+                            new_number = input()
+                    phone_book[name][0] = new_number
+                    print('The phone number of {}  was successfully changed'.format(name))
                     return 0
                 if change_n == "2":
                     new_date = input()
-                    phone_book[key][1] = new_date
+                    phone_book[name][1] = new_date
                     return 0
             if command_add == "2":
-                print("Enter new full name, phone number and date of birthday please:")
-                name_2 = input()
-                number_2 = input()
-                while number_check(number_2) == 0:
-                    print("Phone number must consist of digits only, please try again:")
-                    number_2 = input()
-                date_2 = input()
-                case = '1'
+                print("Enter new full name.Example: Alex Bystov")
+                new_name = input()
+                while name_check(new_name) == 0:
+                        print("Please try again,enter name and surname:", end=' ')
+                        new_name = input()
+                new_name = name_check(new_name)
+                add_persons(phone_book, new_name, number, date)
             if command_add == "3":
                 return 0
-    if case == '1':
-        add_persons(phone_book, name_2, number_2, date_2)
-        print('Person was successfully added!')
     else:
         phone_book[name] = [number, date]
         print('Person was successfully added!')
@@ -211,6 +207,7 @@ def search(d, ob1 , ob2 , ob3 , ob4  ):  # ob1 - name , ob2 - surname , ob3 - nu
     if not flag:
         print('Sorry, Nothing was found')
 
+
 def visualisation(phone_book):
         print("This is  our phone book")
         print("Output format is Name Surname:Number:Date of birth(if exists)")
@@ -239,8 +236,6 @@ def age_of_the_person(phone_book, name):
         print('The age of the person: {} years'.format(age))
 
 
-
-
 def del_person(phone_book, name):
     if name in phone_book:
         del phone_book[name]
@@ -255,22 +250,22 @@ def get_ph_number(phone_book, name):
 
 
 def change_name(phone_book,full_name):
-  if full_name not in phone_book:
-      print('Sorry, we have not such person in our Phone book')
-  else:
-      print('\nPlease, enter new name and surname')
-      print('Example: Alex Bystrov')
-      print('Input here:', end=' ')
-      new_name = input()
-      while new_name in phone_book:
-          print('Sorry, we already have such person in our Phone book\n')
-          print('Please, enter new name and surname')
-          print('Example: Alex Bystrov')
-          print('Input here:', end=' ')
-          new_name = input()
+   if full_name not in phone_book:
+        print('Sorry, we have not such person in our Phone book')
+   else:
+        print('\nPlease, enter new name and surname')
+        print('Example: Alex Bystrov')
+        print('Input here:', end=' ')
+        new_name = input()
+        while new_name in phone_book:
+            print('Sorry, we already have such person in our Phone book\n')
+            print('Please, enter new name and surname')
+            print('Example: Alex Bystrov')
+            print('Input here:', end=' ')
+            new_name = input()
 
-      phone_book[new_name] = phone_book.pop(full_name)
-      print('The name was successfully changed!')
+        phone_book[new_name] = phone_book.pop(full_name)
+        print('The name was successfully changed!')
 
 
 def change_number(phone_book, name):
