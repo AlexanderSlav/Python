@@ -205,8 +205,11 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob1 != "_" and (ob2 == "_" and ob3 == "_" and ob4 == "_"):
         while name_check_search(ob1) == 0:
             print("Please try again")
-            print("To search by Name, you should enter: Name _ _ _", end=' ')
+            print("To search by Name, you should enter only Name", end=' ')
             ob1 = input()
+            while len(ob1) != 1:
+                print('Wrong input, you should enter only Name ')
+                ob1 = input('Please try again')
         ob1 = ob1.title()
         for key, value in phone_book.items():
             if key.split()[0] == ob1:
@@ -217,8 +220,11 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob2 != "_" and (ob1 == "_" and ob3 == "_" and ob4 == "_"):
         while name_check_search(ob2) == 0:
             print("Please try again")
-            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            print("To search by Surname, you should enter only Surname ", end=' ')
             ob2 = input()
+            while len(ob2) != 1:
+                print('Wrong input, you should enter only Surname ')
+                ob2 = input('Please try again')
         ob2 = ob2.title()
         for key, value in phone_book.items():
             if key.split()[1] == ob2:
@@ -228,8 +234,11 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob3 != "_" and (ob1 == "_" and ob2 == "_" and ob4 == "_"):
         while number_check(ob3) == 0:
             print("Please try again")
-            print("To search by Number, you should enter: _ _ Number _", end=' ')
+            print("To search by Number, you should enter only Number", end=' ')
             ob3 = input()
+            while len(ob3) != 1:
+                print('Wrong input, you should enter only Number ')
+                ob3 = input('Please try again')
         if ob3[0] == '+' and ob3[1] == '7':
             ob3 = ob3.replace('+7', '8', 1)
         for key, value in phone_book.items():
@@ -241,8 +250,11 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob4 != "_" and (ob1 == "_" and ob2 == "_" and ob3 == "_"):
         while date_check(ob4) == 0:
             print("Please try again")
-            print("To search by Date, you should enter: _ _ _ Date", end=' ')
+            print("To search by Date, you should enter only Date", end=' ')
             ob4 = input()
+            while len(ob4) != 1:
+                print('Wrong input, you should enter only Date ')
+                ob4 = input('Please try again')
 
             for key, value in phone_book.items():
                 if len(value) > 1:
@@ -254,13 +266,19 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob1 != "_" and ob2 != "_" and (ob3 == "_" and ob4 == "_"):
         while name_check_search(ob1) == 0:
             print("Please try again")
-            print("To search by Name, you should enter: Name _ _ _", end=' ')
+            print("To search by Name, you should enter only  Name", end=' ')
             ob1 = input()
+            while len(ob1) != 1:
+                print('Wrong input, you should enter only Name ')
+                ob1 = input('Please try again')
         ob1 = ob1.title()
         while name_check_search(ob2) == 0:
             print("Please try again")
-            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            print("To search by Surname, you should enter only Surname", end=' ')
             ob2 = input()
+            while len(ob2) != 1:
+                print('Wrong input, you should enter only Surname ')
+                ob2 = input('Please try again')
         ob2 = ob2.title()
         for key, value in phone_book.items():
             if key.split()[0] == ob1 and key.split()[1] == ob2:
@@ -271,12 +289,18 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
     if ob4 != "_" and ob2 != "_" and (ob3 == "_" and ob1 == "_"):
         while date_check(ob4) == 0:
             print("Please try again")
-            print("To search by Date, you should enter: _ _ _ Date", end=' ')
+            print("To search by Date, you should enter only Date", end=' ')
             ob4 = input()
+            while len(ob4) != 1:
+                print('Wrong input, you should enter only Date ')
+                ob4 = input('Please try again')
         while name_check_search(ob2) == 0:
             print("Please try again")
-            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            print("To search by Surname, you should enter only Surname ", end=' ')
             ob2 = input()
+            while len(ob2) != 1:
+                print('Wrong input, you should enter only Surname ')
+                ob2 = input('Please try again')
         ob2 = ob2.title()
         for key, value in phone_book.items():
             if len(value) > 1:
