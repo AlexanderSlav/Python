@@ -43,7 +43,7 @@ def main():
             break
 
         elif command == '2':
-            print('Enter your data about person. The format of data is ' + color.BOLD +
+            print('Enter your data about person.The format of data is ' + color.BOLD +
                   'Name Surname:Number:Date of birth(if you want)' + color.END)
             print('Date of birth format: XX/XX/XXXX')
             print('Example: Alex Bystrov:89100000000:01/04/1999', end=' ')

@@ -355,6 +355,8 @@ def del_person(phone_book, name):
 def get_ph_number(phone_book, name):
     if name in phone_book:
         print("This is number: " + str(phone_book[name][0]) + " of " + name)
+    else:
+        print('Sorry, we have not such person in our Phone book')
 
 
 def change_name(phone_book, full_name):
