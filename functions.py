@@ -307,7 +307,6 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
                 if value[1] == ob4 and key.split()[1] == ob2:
                     print(key, *value)
                     flag = True
-            search(phone_book, ob1, ob2, ob3, ob4)
     if not flag:
         print('Sorry, Nothing was found')
 
@@ -399,6 +398,7 @@ def change_number(phone_book, name):
         if new_number[0] == '+' and new_number[1] == '7':
             new_number = new_number.replace('+7', '8')
         phone_book[name][0] = new_number
+        print('The number was successfully changed!')
 
 
 def change_date(phone_book, name):
