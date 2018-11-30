@@ -207,7 +207,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Name, you should enter only Name", end=' ')
             ob1 = input()
-            while len(ob1) != 1:
+            while len(ob1.split()) != 1:
                 print('Wrong input, you should enter only Name ')
                 ob1 = input('Please try again')
         ob1 = ob1.title()
@@ -222,7 +222,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Surname, you should enter only Surname ", end=' ')
             ob2 = input()
-            while len(ob2) != 1:
+            while len(ob2.split()) != 1:
                 print('Wrong input, you should enter only Surname ')
                 ob2 = input('Please try again')
         ob2 = ob2.title()
@@ -236,7 +236,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Number, you should enter only Number", end=' ')
             ob3 = input()
-            while len(ob3) != 1:
+            while len(ob3.split()) != 1:
                 print('Wrong input, you should enter only Number ')
                 ob3 = input('Please try again')
         if ob3[0] == '+' and ob3[1] == '7':
@@ -252,7 +252,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Date, you should enter only Date", end=' ')
             ob4 = input()
-            while len(ob4) != 1:
+            while len(ob4.split()) != 1:
                 print('Wrong input, you should enter only Date ')
                 ob4 = input('Please try again')
 
@@ -268,7 +268,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Name, you should enter only  Name", end=' ')
             ob1 = input()
-            while len(ob1) != 1:
+            while len(ob1.split()) != 1:
                 print('Wrong input, you should enter only Name ')
                 ob1 = input('Please try again')
         ob1 = ob1.title()
@@ -276,7 +276,7 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Surname, you should enter only Surname", end=' ')
             ob2 = input()
-            while len(ob2) != 1:
+            while len(ob2.split()) != 1:
                 print('Wrong input, you should enter only Surname ')
                 ob2 = input('Please try again')
         ob2 = ob2.title()
@@ -291,14 +291,14 @@ def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 
             print("Please try again")
             print("To search by Date, you should enter only Date", end=' ')
             ob4 = input()
-            while len(ob4) != 1:
+            while len(ob4.split()) != 1:
                 print('Wrong input, you should enter only Date ')
                 ob4 = input('Please try again')
         while name_check_search(ob2) == 0:
             print("Please try again")
             print("To search by Surname, you should enter only Surname ", end=' ')
             ob2 = input()
-            while len(ob2) != 1:
+            while len(ob2.split()) != 1:
                 print('Wrong input, you should enter only Surname ')
                 ob2 = input('Please try again')
         ob2 = ob2.title()
