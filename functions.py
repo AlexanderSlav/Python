@@ -70,7 +70,7 @@ def date_check_for_search(date):
         if int(date[0]) <= 0:
             print("Number of day must be > 0")
             return 0
-
+        return 1
 
 
 def cls():
@@ -418,7 +418,8 @@ def get_ph_number(phone_book, name):
 
 
 def delete_person_by_number(phone_book, number):
-    count = 1
+    count = 1    # Переменная, с помощью которой пользователь сможет выбирать
+    # запись для удаления (является ключом в словаре с кандидатами на удаление)
     records_to_delete = {}
     print('These people have number:{}'.format(number))
     for key, value in phone_book.items():
@@ -434,8 +435,8 @@ def delete_person_by_number(phone_book, number):
         del_person(phone_book, records_to_delete[1])
     else:
         print('Please, choose the records which you want to delete')
-        print('If you want to delete several people, please enter their numbers as in example')
-        print('Example: number1 number2 number3')
+        print('If you want to delete several people, please enter their numbers from list.')
+        print('Example: 1 2 4')
         choices = input('Enter here: ')
         choices = choices.split()
         for choice in choices:

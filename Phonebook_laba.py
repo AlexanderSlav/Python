@@ -197,8 +197,8 @@ def main():
             func.search_by_month_and_day(phone_book, date)
 
         elif command == '12':
-            print('Please enter the number')
-            number = input('Enter number here:')
+            print('Please enter the number', end=' ')
+            number = input()
             while func.number_check(number) == 0:
                 print("Please try again, enter number:", end=' ')
                 number = input()
