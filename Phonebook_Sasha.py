@@ -74,7 +74,7 @@ def main():
                 name = input()
             name = name.title()
             if number[0] == '+' and number[1] == '7':
-                number = number.replace('+7', '8',1)
+                number = number.replace('+7', '8', 1)
             func.add_persons(phone_book, name, number, date)
 
         elif command == '3':
@@ -96,32 +96,6 @@ def main():
                 print('Please, try again here:', end=' ')
                 data = input().split()
             ob1, ob2, ob3, ob4 = data[0], data[1], data[2], data[3]
-
-            if ob3 != '_':
-                while func.number_check(ob3) == 0:
-                    print("Please try again")
-                    print("To search by Number, you should enter: _ _ Number _", end=' ')
-                    ob3 = input()
-                if ob3[0] == '+' and ob3[1] == '7':
-                    ob3 = ob3.replace('+7', '8',1)
-            if ob4 != '_':
-                while func.date_check(ob4) == 0:
-                    print("Please try again")
-                    print("To search by Date, you should enter: _ _ _ Date", end=' ')
-                    ob4 = input()
-            if ob1 != '_':
-                while func.name_check_search(ob1) == 0:
-                    print("Please try again")
-                    print("To search by Name, you should enter: Name _ _ _", end=' ')
-                    ob1 = input()
-                ob1 = ob1.title()
-            if ob2 != '_':
-                while func.name_check_search(ob2) == 0:
-                    print("Please try again")
-                    print("To search by Surname, you should enter: _ Surname _ _", end=' ')
-                    ob2 = input()
-                ob2 = ob2.title()
-
             func.search(phone_book, ob1, ob2, ob3, ob4)
 
         elif command == '5':

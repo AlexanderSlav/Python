@@ -62,7 +62,7 @@ def surname_check_search(ob2):
 
 # Проверка полного имени (Имя,Фамилия) на корректность
 def name_check(name):
-    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}','_']
+    punctuation_marks = ['!', '.', ',', '/', ';', ':', '-', '(', ')', '?', '>', '<', '[', ']', '{', '}', '_']
     if len(name.split()) != 2:
         print('The wrong format of full name, you should enter Name and Surname.')
         print('Example: Alex Bystov')
@@ -121,7 +121,7 @@ def date_check(date):
     if int(date[0]) <= 0:
         print("Number of day must be > 0")
         return 0
-    if int(date[2]) <= 0 :
+    if int(date[2]) <= 0:
         print("Year can not be lower than zero or equal to it")
         return 0
     return 1
@@ -194,50 +194,91 @@ def add_persons(phone_book, name, number, date):
         print('Person was successfully added!')
 
 
-def search(d, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
+def search(phone_book, ob1, ob2, ob3, ob4):  # ob1 - name , ob2 - surname , ob3 - number , ob4 - date
     flag = False
     # SEARCH BY NAME
     if ob1 != "_" and (ob2 == "_" and ob3 == "_" and ob4 == "_"):
-        for key, value in d.items():
+        while name_check_search(ob1) == 0:
+            print("Please try again")
+            print("To search by Name, you should enter: Name _ _ _", end=' ')
+            ob1 = input()
+        ob1 = ob1.title()
+        for key, value in phone_book.items():
             if key.split()[0] == ob1:
                 print(key, *value)
                 flag = True
 
     # SEARCH BY SURNAME
     if ob2 != "_" and (ob1 == "_" and ob3 == "_" and ob4 == "_"):
-        for key, value in d.items():
+        while name_check_search(ob2) == 0:
+            print("Please try again")
+            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            ob2 = input()
+        ob2 = ob2.title()
+        for key, value in phone_book.items():
             if key.split()[1] == ob2:
                 print(key, *value)
                 flag = True
     # SEARCH BY PHONE NUMBER
     if ob3 != "_" and (ob1 == "_" and ob2 == "_" and ob4 == "_"):
-        for key, value in d.items():
+        while number_check(ob3) == 0:
+            print("Please try again")
+            print("To search by Number, you should enter: _ _ Number _", end=' ')
+            ob3 = input()
+        if ob3[0] == '+' and ob3[1] == '7':
+            ob3 = ob3.replace('+7', '8', 1)
+        for key, value in phone_book.items():
             if value[0] == ob3:
                 print(key, *value)
                 flag = True
 
     # SEARCH BY DATE OF BIRTHDAY
     if ob4 != "_" and (ob1 == "_" and ob2 == "_" and ob3 == "_"):
-         for key, value in d.items():
-            if len(value) > 1:
-                if value[1] == ob4:
-                    print(key, *value)
-                    flag = True
+        while date_check(ob4) == 0:
+            print("Please try again")
+            print("To search by Date, you should enter: _ _ _ Date", end=' ')
+            ob4 = input()
+
+            for key, value in phone_book.items():
+                if len(value) > 1:
+                    if value[1] == ob4:
+                        print(key, *value)
+                        flag = True
 
     # SEARCH BY FULL NAME
     if ob1 != "_" and ob2 != "_" and (ob3 == "_" and ob4 == "_"):
-        for key, value in d.items():
+        while name_check_search(ob1) == 0:
+            print("Please try again")
+            print("To search by Name, you should enter: Name _ _ _", end=' ')
+            ob1 = input()
+        ob1 = ob1.title()
+        while name_check_search(ob2) == 0:
+            print("Please try again")
+            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            ob2 = input()
+        ob2 = ob2.title()
+        for key, value in phone_book.items():
             if key.split()[0] == ob1 and key.split()[1] == ob2:
                 print(key, *value)
                 flag = True
 
     # SEARCH BY DATE AND SURNAME
-    if ob4 != "_" and ob2 != "_"  and (ob3 == "_" and ob1 == "_"):
-        for key, value in d.items():
+    if ob4 != "_" and ob2 != "_" and (ob3 == "_" and ob1 == "_"):
+        while date_check(ob4) == 0:
+            print("Please try again")
+            print("To search by Date, you should enter: _ _ _ Date", end=' ')
+            ob4 = input()
+        while name_check_search(ob2) == 0:
+            print("Please try again")
+            print("To search by Surname, you should enter: _ Surname _ _", end=' ')
+            ob2 = input()
+        ob2 = ob2.title()
+        for key, value in phone_book.items():
             if len(value) > 1:
                 if value[1] == ob4 and key.split()[1] == ob2:
                     print(key, *value)
                     flag = True
+            search(phone_book, ob1, ob2, ob3, ob4)
     if not flag:
         print('Sorry, Nothing was found')
 
@@ -288,10 +329,10 @@ def get_ph_number(phone_book, name):
         print("This is number: " + str(phone_book[name][0]) + " of " + name)
 
 
-def change_name(phone_book,full_name):
-   if full_name not in phone_book:
+def change_name(phone_book, full_name):
+    if full_name not in phone_book:
         print('Sorry, we have not such person in our Phone book')
-   else:
+    else:
         print('\nPlease, enter new name and surname')
         print('Example: Alex Bystrov')
         print('Input here:', end=' ')
