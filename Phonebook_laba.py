@@ -1,4 +1,3 @@
-from tkinter import *
 import functions as func
 
 class color:
