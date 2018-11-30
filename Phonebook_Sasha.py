@@ -25,7 +25,8 @@ def main():
         '7. Get number': 'You can get the phone number of the person',
         '8. Delete person': 'You can delete a record about the person',
         '9. Compare age of persons': 'You can find out how many people are younger/older/equal than/to N years old.'
-                                     'You enter the parameter N'
+                                     'You should enter the parameter N',
+        '10. Clear screen': 'You can clear screen if you want'
         }
     phone_book = {}
 
@@ -33,8 +34,6 @@ def main():
         for line in file:
             key, *value = line.replace('\n', ':').split(':')
             phone_book[key] = value[:-1]
-
-    print('Enter the command, please:')
 
     while True:
         print('Welcome to our phone book!')
@@ -86,7 +85,9 @@ def main():
                   "1. You can search by Name, you should enter: Name _ _ _ \n"
                   "2. You can search by Surname, you should enter: _ Surname _ _\n"
                   "3. You can search by Number, you should enter: _ _ Number _\n"
-                  "4. You can search by Birth Date, you should enter: _ _ _ Date\n")
+                  "4. You can search by Birth Date, you should enter: _ _ _ Date\n"
+                  "5. You can search by Birth Date and Surname at the same time, you should enter: _ Surname _ Date\n"
+                  "6. You can search by Name and Surname at the same time, you should enter: Name Surname _ _\n")
             print('Example: Petr _ _ _')
             print('Enter your data:', end=' ')
             data = input().split()
@@ -168,12 +169,13 @@ def main():
             name = name.title()
             func.del_person(phone_book, name)
         elif command == '9':
-            print('Please enter the age that you interested in (N):', end=' ')
+            print('Please enter the age with that you want compare persons age in Phone book (N):', end=' ')
             comparison_number = input()
             while func.comparison_number_check(comparison_number) == 0:
-                print('Wrong input fromat, please try again:', end='')
+                print('Wrong input format, please try again:', end='')
                 comparison_number = input()
-            print('Do you want to watch people younger(enter 1), older(enter 2) or equal(enter 3) than {}'.format(comparison_number))
+            print('Do you want to watch people younger(enter 1), older(enter 2) '
+                  'or equal(enter 3) than {}'.format(comparison_number))
             print('Enter data here', end=' ')
             parameter = input()
             while parameter != '1' and parameter != '2' and parameter != '3':
@@ -182,6 +184,8 @@ def main():
                 print('Enter your parameter here:', end=' ')
                 parameter = input()
             func.compare_by_age(phone_book, comparison_number, parameter)
+        elif command == '10':
+            func.cls()
 
     with open('surname_numbers.txt', 'w') as out:
         for key, value in phone_book.items():

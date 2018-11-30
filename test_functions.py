@@ -33,7 +33,7 @@ def test_name_check():
 def test_number_check():
     assert func.number_check('89101418456') == 1
     assert func.number_check('8910141845') == 0
-    assert func.number_check('+79101418456') ==1
+    assert func.number_check('+79101418456') == 1
     assert func.number_check('+79101418456123123') == 0
     assert func.number_check('Wrong input') == 0
     assert func.number_check('89101sdffsdf') == 0
@@ -52,7 +52,4 @@ def test_comparison_number_check():
     assert func.comparison_number_check('sdfasf') == 0
     assert func.comparison_number_check('12/5') == 0
     assert func.comparison_number_check('12.5') == 0
-
-
-
 

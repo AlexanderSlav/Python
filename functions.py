@@ -1,4 +1,5 @@
 from datetime import date
+import os
 
 
 class color:
@@ -12,6 +13,10 @@ class color:
         BOLD = '\033[1m'
         UNDERLINE = '\033[4m'
         END = '\033[0m'
+
+
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # Проверка числа для сравнения всех записей словаря по возрасту
@@ -108,7 +113,7 @@ def date_check(date):
         print('Wrong format of date, date must contain digits only,  please try again')
         print('Date of birth format: XX/XX/XXXX')
         return 0
-    if len(date[0]) != 2 or len(date[1]) != 2 :
+    if len(date[0]) != 2 or len(date[1]) != 2:
         print('Wrong format of date, please try again')
         print('Date of birth format: XX/XX/XXXX')
         return 0
@@ -136,7 +141,7 @@ def number_check(number):
     if len(number) != 11:
         print("The number must consist of 11 digits")
         return 0
-    else :
+    else:
         return 1
 
 
@@ -321,7 +326,7 @@ def del_person(phone_book, name):
         del phone_book[name]
         print('{} was deleted from your phone book'.format(name))
     else:
-        print(color.RED + "We have not person with such name in Phone book"+ color.END)
+        print(color.RED + "We have not person with such name in Phone book" + color.END)
 
 
 def get_ph_number(phone_book, name):
@@ -394,15 +399,15 @@ def compare_by_age(phone_book, comparison_number, parameter):
             if parameter == '1':
                 if age_of_the_person(phone_book, person, 1) < int(comparison_number):
                     flag = True
-                    print(person)
+                    print(person, *phone_book[person])
             if parameter == '2':
                 if age_of_the_person(phone_book, person, 1) > int(comparison_number):
                     flag = True
-                    print(person)
+                    print(person, *phone_book[person])
             if parameter == '3':
                 if age_of_the_person(phone_book, person, 1) == int(comparison_number):
                     flag = True
-                    print(person)
+                    print(person, *phone_book[person])
     if not flag:
         print('Sorry,nothing was found')
 
