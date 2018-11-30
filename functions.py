@@ -15,6 +15,11 @@ class color:
         END = '\033[0m'
 
 
+def search_by_month_and_day(phone_book, month, day):
+    
+
+
+
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 

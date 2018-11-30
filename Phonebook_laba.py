@@ -25,7 +25,9 @@ def main():
         '8. Delete person': 'You can delete a record about the person',
         '9. Compare age of persons': 'You can find out how many people are younger/older/equal than/to N years old.'
                                      'You should enter the parameter N',
-        '10. Clear screen': 'You can clear screen if you want'
+        '10. Clear screen': 'You can clear screen if you want',
+        '11. Search  by month and day': 'You can search records in Phone book by month and day at the same time',
+        '12. Delete person by number': 'You can delete person by number'
         }
     phone_book = {}
 
@@ -185,6 +187,22 @@ def main():
             func.compare_by_age(phone_book, comparison_number, parameter)
         elif command == '10':
             func.cls()
+        elif command == '11':
+            print('Please enter the month and day. The format of input: Day/Month(XX/XX)')
+            print('Example: 21/11')
+            date = input('Enter date here:')
+            while func.date_check_for_search(date) == 0:
+                print("Please try again,enter only date:", end=' ')
+                date = input()
+            func.search_by_month_and_day(phone_book, date)
+
+        elif command == '12':
+            print('Please enter the number')
+            number = input('Enter number here:')
+            while func.number_check(number) == 0:
+                print("Please try again, enter number:", end=' ')
+                number = input()
+            func.delete_person_by_number(phone_book, number)
 
     with open('surname_numbers.txt', 'w') as out:
         for key, value in phone_book.items():
