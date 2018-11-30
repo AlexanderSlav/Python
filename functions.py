@@ -15,8 +15,61 @@ class color:
         END = '\033[0m'
 
 
-def search_by_month_and_day(phone_book, month, day):
-    
+def search_by_month_and_day(phone_book, date):
+    flag = False
+    for key, value in phone_book.items():
+        if len(value) == 1:
+            pass
+        else:
+            if value[1].split('/')[0] == date.split('/')[0] and value[1].split('/')[1] == date.split('/')[1]:
+                flag = True
+                print(key, *value)
+    if not flag:
+        print('Sorry, nothing was found')
+
+
+def date_check_for_search(date):
+        amount_of_days = {
+            '01': '31',
+            '02': '28',
+            '03': '31',
+            '04': '30',
+            '05': '31',
+            '06': '30',
+            '07': '31',
+            '08': '31',
+            '09': '30',
+            '10': '31',
+            '11': '30',
+            '12': '31',
+        }
+        if date == '':
+            print('The wrong format of date, nothing was entered')
+            print('Example:01/04')
+            return 0
+
+        date = date.split('/')
+        if len(date) != 2:
+            print('The wrong format of date, please try again')
+            print('Example:01/04')
+            return 0
+        if date[0].isdigit() is False or date[1].isdigit() is False:
+            print('Wrong format of date, date must contain digits only,  please try again')
+            print('Date of birth format: XX/XX')
+            return 0
+        if len(date[0]) != 2 or len(date[1]) != 2:
+            print('Wrong format of date, please try again')
+            print('Date of birth format: XX/XX')
+            return 0
+        if int(date[1]) > 12 or int(date[1]) <= 0:
+            print("Wrong number of month, you can choose digit from 1 to 12 ")
+            return 0
+        if int(amount_of_days[date[1]]) < int(date[0]):
+            print("Wrong amount of days, there is only: " + amount_of_days[date[1]] + " in this month")
+            return 0
+        if int(date[0]) <= 0:
+            print("Number of day must be > 0")
+            return 0
 
 
 
@@ -362,6 +415,42 @@ def get_ph_number(phone_book, name):
         print("This is number: " + str(phone_book[name][0]) + " of " + name)
     else:
         print('Sorry, we have not such person in our Phone book')
+
+
+def delete_person_by_number(phone_book, number):
+    count = 1
+    records_to_delete = {}
+    print('These people have number:{}'.format(number))
+    for key, value in phone_book.items():
+        if value[0] == number:
+            print('{}.'.format(count), end=' ')
+            print(key, *value)
+            records_to_delete[count] = key
+            count += 1
+    if records_to_delete == {}:
+        print('Sorry, nothing was found. There is no people with such number in our Phone book')
+
+    elif len(records_to_delete) == 1:
+        del_person(phone_book, records_to_delete[1])
+    else:
+        print('Please, choose the records which you want to delete')
+        print('If you want to delete several people, please enter their numbers as in example')
+        print('Example: number1 number2 number3')
+        choices = input('Enter here: ')
+        choices = choices.split()
+        for choice in choices:
+            try:
+                choice = int(choice)
+                if records_to_delete[choice] in phone_book:
+                    del_person(phone_book, records_to_delete[choice])
+                else:
+                    print('You have already deleted {}'.format(records_to_delete[choice]))
+            except ValueError:
+                print('Input error!', end=' ')
+                print('You should write only digits divided by whitespaces')
+            except KeyError:
+                print('Input error!', end=' ')
+                print('You should choose digits from list with persons')
 
 
 def change_name(phone_book, full_name):
