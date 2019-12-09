@@ -67,7 +67,7 @@ def fill_movie_genre_table(file):
             db.commit()
 def parse_args():
     parser = argparse.ArgumentParser(description='Drop tables if needeed')
-    parser.add_argument('--drop', default=False, help='set True if you want dropp tables')
+    parser.add_argument('--drop', default=False, help='set True if you want drop tables')
     opt = parser.parse_args()
     return opt
 
