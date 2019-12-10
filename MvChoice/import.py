@@ -64,25 +64,24 @@ def fill_movie_genre_table(file):
             db.commit()
 def parse_args():
     parser = argparse.ArgumentParser(description='Drop tables if needeed')
-    parser.add_argument('--drop', default=False, help='set True if you want drop tables')
+    parser.add_argument('--drop', default=False, help='set True if you want dropp tables')
     opt = parser.parse_args()
     return opt
 
 def main():
     args = parse_args()
     if args.drop:
-        for table in ['roles','movie_genre','genres','actors','movies']:
-            db.execute("DROP TABLE {};".format(table))
+            db.execute("call drop_all_Tables();")
             db.commit()
-        call(["python", "create.py"])
-    #
-    # fill_movie_table("movies.csv")
-    # fill_actors_table("actors.csv")
-    # fill_cast_table("cast.csv")
-    # fill_genres_table("genre.csv")
-    # fill_movie_genre_table("movie-genre.csv")
-    movie_info = db.execute("select  * from Movie_Info;").fetchall()
-    print(movie_info)
+            call(["python", "create.py"])
+
+    fill_movie_table("tables/movies.csv")
+    fill_actors_table("tables/actors.csv")
+    fill_cast_table("tables/cast.csv")
+    fill_genres_table("tables/genre.csv")
+    fill_movie_genre_table("tables/movie-genre.csv")
+    # movie_info = db.execute("select  * from Movie_Info;").fetchall()
+    # print(movie_info)
     db.commit()
 if __name__ == "__main__":
     main()
