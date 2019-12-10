@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tables
+{% endblock %}
+
+{% block body %}
+
+    <p>Choose table to view data inside</p>
+     <form action="{{ url_for('tables_view') }}" method= "post" >
+        <!-- <div class="form-group">
+            <select class="form-control" name="movie_id">
+                {% for movie in movies %}
+                    <option value="{{ movie.id }}">{{movie.name }} {{movie.year}}</option>
+                {% endfor %}
+            </select>
+        </div> -->
+        <ul>
+          {% for table in tables %}
+              <li>{{ table }}</li>
+          {% endfor %}
+        </ul>
+        <div class="form-group">
+           <input type="text" name="table" size="20" placeholder="Table Name"><br>
+        </div>
+        <div class="form-group">
+            <button class="button">Choose</button>
+        </div>
+    </form>
+
+{% endblock %}

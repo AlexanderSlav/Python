@@ -1,0 +1,1 @@
+psql -h localhost -d Final_Project -U postgres -p 5432 -a -w -f functions.sql

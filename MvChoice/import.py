@@ -48,8 +48,6 @@ def fill_cast_table(file):
 def fill_genres_table(file):
     with open(file) as f:
         reader = csv.reader(f)
-        print(reader)
-
         for genre in reader:
             genre = Genre(genre=genre)
             db.add(genre)
@@ -59,7 +57,6 @@ def fill_genres_table(file):
 def fill_movie_genre_table(file):
     with open(file) as f:
         reader = csv.reader(f)
-
         for f_id, g_id in reader:
             mov_genre = Movie_Genre(f_id=f_id, g_id=g_id)
             db.add(mov_genre)
@@ -78,12 +75,14 @@ def main():
             db.execute("DROP TABLE {};".format(table))
             db.commit()
         call(["python", "create.py"])
-
-    fill_movie_table("movies.csv")
-    fill_actors_table("actors.csv")
-    fill_cast_table("cast.csv")
-    fill_genres_table("genre.csv")
-    fill_movie_genre_table("movie-genre.csv")
+    #
+    # fill_movie_table("movies.csv")
+    # fill_actors_table("actors.csv")
+    # fill_cast_table("cast.csv")
+    # fill_genres_table("genre.csv")
+    # fill_movie_genre_table("movie-genre.csv")
+    movie_info = db.execute("select  * from Movie_Info;").fetchall()
+    print(movie_info)
     db.commit()
 if __name__ == "__main__":
     main()

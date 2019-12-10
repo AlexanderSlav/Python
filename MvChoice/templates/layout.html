@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<style>
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.skinny{
+padding-left:0;
+}
+body {
+  background-image: url("https://wallpaperaccess.com/full/1342869.jpg");
+  background-size: cover;
+}
+.text-block {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: none;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+</style>
+</head>
+<body>
+
+
+  <h1>{% block heading %}{% endblock %}</h1>
+  {% block body%}
+  {% endblock %}
+  <div class="text-block">
+      <h4>Authors</h4>
+      <p>The project was made by Alexander Slavutin and Pavel Semkin</p>
+    </div>
+
+
+</body>
+</html>
