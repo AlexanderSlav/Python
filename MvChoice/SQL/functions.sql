@@ -149,3 +149,62 @@ BEGIN
   return id;
 END
 $func$ LANGUAGE plpgsql;
+
+--Inser into tables
+
+CREATE OR REPLACE function insertIntoMovie( Movie_Name varchar(35), year integer,budget integer,
+                                            fees integer, country varchar(35), rate float, duration integer,
+                                            plot_description varchar(80))
+returns integer
+AS
+$func$
+BEGIN
+    INSERT INTO movies(name,year,budget,fees,country,rate,duration,plot_description)
+     VALUES (Movie_Name,year,budget,fees,country,rate,duration,plot_description);
+     return 1;
+END
+$func$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE function insertIntoCast(f_id integer, a_id integer, role varchar(50))
+returns integer
+AS
+$func$
+BEGIN
+    INSERT INTO roles(f_id, a_id, role)
+     VALUES (f_id,a_id,role);
+     return 1;
+END
+$func$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE function insertIntoGenre(genre varchar(50))
+returns integer
+AS
+$func$
+BEGIN
+    INSERT INTO genres(genre)
+     VALUES (genre);
+     return 1;
+END
+$func$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE function insertIntoActors(name varchar(50),birth_date integer,nationality varchar(50),gender varchar(50),age integer)
+returns integer
+AS
+$func$
+BEGIN
+    INSERT INTO actors(name,birth_date,nationality,gender,age)
+     VALUES (name,birth_date,nationality,gender,age);
+     return 1;
+END
+$func$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE function insertIntoMovie_Genre(f_id integer,g_id integer)
+returns integer
+AS
+$func$
+BEGIN
+    INSERT INTO movie_genre(f_id, g_id)
+     VALUES (f_id,g_id);
+     return 1;
+END
+$func$ LANGUAGE plpgsql;

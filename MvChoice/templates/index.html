@@ -5,16 +5,9 @@
 {% endblock %}
 
 {% block body %}
-
+  <div class='text'>
     <p>Choose table to view data inside</p>
      <form action="{{ url_for('tables_view') }}" method= "post" >
-        <!-- <div class="form-group">
-            <select class="form-control" name="movie_id">
-                {% for movie in movies %}
-                    <option value="{{ movie.id }}">{{movie.name }} {{movie.year}}</option>
-                {% endfor %}
-            </select>
-        </div> -->
         <ul>
           {% for table in tables %}
               <li>{{ table }}</li>
@@ -27,5 +20,6 @@
             <button class="button">Choose</button>
         </div>
     </form>
+    </div>
 
 {% endblock %}

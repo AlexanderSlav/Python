@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,25 +27,37 @@ body {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: none;
-  color: white;
+  background-color: #f2f2f2;
   padding-left: 10px;
   padding-right: 10px;
+  opacity : 0.6;
 }
+
+.text{
+  position: relative;
+  bottom: 10px;
+  right: 10px;
+  background-color: none;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+  opacity : 0.8;
+  }
+
 
 </style>
 </head>
 <body>
 
-
   <h1>{% block heading %}{% endblock %}</h1>
   {% block body%}
   {% endblock %}
   <div class="text-block">
+    <div class = 'text'>
       <h4 style="font-size:35px">Authors</h4>
       <p style="font-size:25px">The project was made by Alexander Slavutin and Pavel Semkin</p>
     </div>
-
+    </div>
 
 </body>
 </html>

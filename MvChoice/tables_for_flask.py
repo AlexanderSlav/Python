@@ -106,16 +106,3 @@ def create_table_view_for_flask(table_type,table_data):
             items.append(Movie_Genre(m_g.id, m_g.f_id, m_g.g_id))
         table = Movie_Genre_Table(items)
     return table
-    # elif table_type == 'roles':
-    #     for actor in table_data:
-    #         items.append(Item('f_id','a_id','role'))
-    #
-    # elif table_type == 'genres':
-    #     for actor in table_data:
-    #         items.append(Item('name','birth_date','nationality',
-    #         'gender','age'))
-    #
-    # elif table_type == 'genre of the movie':
-    #         for actor in table_data:
-    #             items.append(Item('name','birth_date','nationality',
-    #             'gender','age'))
