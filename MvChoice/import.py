@@ -75,13 +75,11 @@ def main():
             db.commit()
             call(["python", "create.py"])
 
-    # fill_movie_table("tables/movies.csv")
-    # fill_actors_table("tables/actors.csv")
-    # fill_cast_table("tables/cast.csv")
-    # fill_genres_table("tables/genre.csv")
-    # fill_movie_genre_table("tables/movie-genre.csv")
-    # movie_info = db.execute("select  * from Movie_Info;").fetchall()
-    # print(movie_info)
+    fill_movie_table("tables/movies.csv")
+    fill_actors_table("tables/actors.csv")
+    fill_cast_table("tables/cast.csv")
+    fill_genres_table("tables/genre.csv")
+    fill_movie_genre_table("tables/movie-genre.csv")
     db.commit()
 if __name__ == "__main__":
     main()

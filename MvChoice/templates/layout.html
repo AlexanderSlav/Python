@@ -2,62 +2,69 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" >
+</head>
 <style>
-.button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 12px 28px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 10px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-.skinny{
-padding-left:0;
-}
-body {
-  background-image: url("https://wallpaperaccess.com/full/1342869.jpg");
-  background-size: cover;
-}
-.text-block {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: #f2f2f2;
-  padding-left: 10px;
-  padding-right: 10px;
-  opacity : 0.6;
-}
 
-.text{
-  position: relative;
-  bottom: 10px;
-  right: 10px;
-  background-color: none;
-  color: black;
-  padding-left: 10px;
-  padding-right: 10px;
-  opacity : 0.8;
-  }
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600');
+body {
+  background-image: url("static/web_fone.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
 
 
 </style>
-</head>
 <body>
 
-  <h1>{% block heading %}{% endblock %}</h1>
-  {% block body%}
-  {% endblock %}
-  <div class="text-block">
-    <div class = 'text'>
-      <h4 style="font-size:35px">Authors</h4>
-      <p style="font-size:25px">The project was made by Alexander Slavutin and Pavel Semkin</p>
-    </div>
-    </div>
+  <div class="container">
+      <header>
+        <img src="static/my_logo.png" alt="Movie choice" class="logo">
+
+            <div class="navbar">
+              <a  href="{{ url_for('index') }}">Home</a>
+              <div class="subnav">
+                <button   class="subnavbtn">Tables <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="{{ url_for('tables_choice') }}">View Data</a>
+                  <a href="#team">Search</a>
+                  <a href="#careers">Insert</a>
+                  <a href="#careers">Update</a>
+                </div>
+              </div>
+              <div class="subnav">
+                <button  class="subnavbtn">Databases <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="#bring">Create Database</a>
+                  <a href="#deliver">Delete Database</a>
+                </div>
+              </div>
+              <div class="subnav">
+                <button class="subnavbtn">Authors <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="https://github.com/AlexanderSlav/">Alexander Slavutin</a>
+                  <a href="https://github.com/PVSemk">Pavel Semkin</a>
+                </div>
+              </div>
+
+            </div>
+
+      </header>
+
+      <h1>{% block heading %}{% endblock %}</h1>
+      {% block body%}
+      {% endblock %}
+
+
+
+
+
 
 </body>
 </html>

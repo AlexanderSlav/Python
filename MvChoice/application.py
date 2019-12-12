@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from credentials import *
 from tables_for_flask import *
-tables = [('movies'),('actors'),('roles'),('genres'),('genre of the movie')]
+tables = [{'name':'movies'},{'name':'actors'},{'name':'roles'},{'name':'genres'},{'name':'genre of the movie'}]
+
 app = Flask(__name__)
 password = os.getenv("POSTGRES_PASSWORD")
 credentials = Credentials('Final_Project',password)
@@ -15,12 +16,13 @@ db = scoped_session(sessionmaker(bind=engine))
 # Home page with tables list
 @app.route("/")
 def index():
-    return render_template('index.html',tables=tables)
+    return render_template('welcome_page.html')
 
 
-@app.route("/tables",methods=["POST","GET"])
+@app.route("/view_tables",methods=["POST","GET"])
 def tables_view():
-    table = request.form.get("table")
+    table = request.form.get("table_name")
+    print(table)
     if table == 'movies':
         movies = db.execute("select  * from Movie_Info;").fetchall()
         html_table = create_table_view_for_flask(table, movies)
@@ -41,4 +43,9 @@ def tables_view():
         movies = db.execute("select  * from Cast_Info;").fetchall()
         html_table = create_table_view_for_flask(table, movies)
         return render_template('tables_window.html',html_table = html_table)
-    return ('Nothing')
+    return render_template('error.html',table = table, message='There is no such table -> ')
+
+
+@app.route("/tables")
+def tables_choice():
+    return render_template('index.html',tables=tables)

@@ -17,3 +17,7 @@ class Credentials:
         self.DB_CONN_URI_DEFAULT = (self.DB_CONN_FORMAT.format(
             database= db_name,
             **self.DB_CONFIG_DICT))
+    def new_database(self,new_db_name):
+        self.DB_CONN_URI_NEW = (self.DB_CONN_FORMAT.format(
+            database= new_db_name,
+            **self.DB_CONFIG_DICT))

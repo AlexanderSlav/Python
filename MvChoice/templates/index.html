@@ -8,17 +8,13 @@
   <div class='text'>
     <p>Choose table to view data inside</p>
      <form action="{{ url_for('tables_view') }}" method= "post" >
-        <ul>
-          {% for table in tables %}
-              <li>{{ table }}</li>
-          {% endfor %}
-        </ul>
-        <div class="form-group">
-           <input type="text" name="table" size="20" placeholder="Table Name"><br>
-        </div>
-        <div class="form-group">
-            <button class="button">Choose</button>
-        </div>
+        <select class="form-control" name="table_name">
+              {% for table in tables %}
+                  <option value="{{ table.name }}">{{ table.name }}</option>
+              {% endfor %}
+        </select>
+
+        <button class="button">Choose</button>
     </form>
     </div>
 

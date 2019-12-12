@@ -1,0 +1,163 @@
+
+p, blockquote {
+    font-size: .9em;
+    line-height: 1.6em;
+    text-indent: 50px;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.container {
+    text-align: left;
+    padding: 1px 1.2px;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+}
+.menu {
+    width: 25px;
+    margin-top: 45%;
+}
+p{
+  font-size: 20px;
+  font-style: italic;
+}
+
+
+.button {
+  display: inline-block;
+  padding: 10px 12px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: yellow;
+  background-color: grey;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  width: 30%;
+  height: 40%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: right;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+  color: #008CBA;
+}
+
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+
+.subnav .subnavbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: red;
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: red;
+  width: 30%;
+  z-index: 1;
+}
+
+.subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
+}
+
+h1 {
+text-align: center;
+text-transform: uppercase;
+color: #674d3c;
+}
+
+.welcome
+{
+  text-align: center;
+  border: 3px solid gray;
+  padding: 2px;
+  border-radius: 12px;
+  position: absolute;
+  right: 20%;
+
+}
