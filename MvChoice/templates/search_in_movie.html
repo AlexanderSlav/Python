@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+    Tables
+{% endblock %}
+
+
+
+
+{% block body %}
+<h2>My Customers</h2>
+<form>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for year.." title="Type in a name">
+</form>
+<div id="myTable">
+    {{html_table}}
+</div>
+
+
+
+{% endblock %}

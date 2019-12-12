@@ -12,6 +12,18 @@ ul {
     padding: 0;
 
 }
+
+.text
+{
+  margin:auto;
+  height: 300px;
+  width: 300px;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
 header {
     display: flex;
     justify-content: space-between;
@@ -40,13 +52,13 @@ p{
 .button {
   display: inline-block;
   padding: 10px 12px;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   outline: none;
   color: yellow;
-  background-color: grey;
+  background-color: #82b74b;
   border: none;
   border-radius: 5px;
   box-shadow: 0 9px #999;
@@ -159,5 +171,46 @@ color: #674d3c;
   border-radius: 12px;
   position: absolute;
   right: 20%;
+
+}
+
+#myInput {
+ background-image: url('/css/searchicon.png');
+ background-position: 10px 10px;
+ background-repeat: no-repeat;
+ width: 100%;
+ font-size: 16px;
+ padding: 12px 20px 12px 40px;
+ border: 1px solid #ddd;
+ margin-bottom: 12px;
+}
+
+#myTable {
+ border-collapse: collapse;
+ width: 100%;
+ font-size: 18px;
+
+}
+
+#myTable th {
+ text-align: left;
+ padding: 12px;
+ background-color: white;
+
+}
+#myTable td
+{
+  text-align: left;
+  padding: 12px;
+
+}
+
+#myTable tr {
+ border-bottom: 1px solid #ddd;
+ background-color: gray;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: white;
 
 }

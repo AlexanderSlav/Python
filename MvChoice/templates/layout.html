@@ -21,7 +21,7 @@ body {
 
 
 </style>
-<body>
+<body style="text-align:center;">
 
   <div class="container">
       <header>
@@ -33,9 +33,14 @@ body {
                 <button   class="subnavbtn">Tables <i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
                   <a href="{{ url_for('tables_choice') }}">View Data</a>
-                  <a href="#team">Search</a>
+                  <button   class="subnavbtn">Search <i class="fa fa-caret-down"></i></button>
+                  <div class="subnav-content">
+                      <a href="{{ url_for('search_m') }}">Search In Movies</a>
+                      <a href="{{ url_for('search_a') }}">Search In Actors</a>
+                  </div>
                   <a href="#careers">Insert</a>
                   <a href="#careers">Update</a>
+                  <a href="#careers">Delete</a>
                 </div>
               </div>
               <div class="subnav">

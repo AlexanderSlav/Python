@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tables
+{% endblock %}
+
+{% block body %}
+  <div class='text'>
+    <p>Choose table to view data inside</p>
+     <form action="{{ url_for('mov_search') }}" method= "post" >
+        <select class="form-control" name="param_name">
+              {% for parameter in parameters %}
+                  <option value="{{ parameter.name }}">{{ parameter.name }}</option>
+              {% endfor %}
+        </select>
+        <input type="text" name="param_value" placeholder="Search .." title="Type parameter value">
+        <button class="button">Choose</button>
+    </form>
+    </div>
+
+{% endblock %}

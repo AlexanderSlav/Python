@@ -279,6 +279,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Movie_By_Name(object_name varchar)
 returns table(
+    id integer,
     name varchar,
     year integer,
     budget float,
@@ -290,7 +291,7 @@ returns table(
 )
 AS $$
 BEGIN
-    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    return query select movies.id, movies.name, movies.year, movies.budget, movies.fees,
     movies.country, movies.rate, movies.duration, movies.plot_description
     from movies where
     movies.name ILIKE object_name;
@@ -299,6 +300,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Movie_By_Plot( input_plot_description varchar)
 returns table(
+    id integer,
     name varchar,
     year integer,
     budget float,
@@ -310,7 +312,7 @@ returns table(
 )
 AS $$
 BEGIN
-    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    return query select movies.id, movies.name, movies.year, movies.budget, movies.fees,
     movies.country, movies.rate, movies.duration, movies.plot_description
     from movies where movies.plot_description ILIKE input_plot_description;
 END; $$
@@ -318,6 +320,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Movie_By_Year(input_year integer, comparison_type varchar)
 returns table(
+    id integer,
     name varchar,
     year integer,
     budget float,
@@ -330,12 +333,12 @@ returns table(
 AS $$
 BEGIN
 if comparison_type = 'less' then
-    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    return query select movies.id, movies.name, movies.year, movies.budget, movies.fees,
     movies.country, movies.rate, movies.duration, movies.plot_description
     from movies where movies.year <= input_year;
 END IF;
 if comparison_type = 'greater' then
-    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    return query select  movies.id, movies.name, movies.year, movies.budget, movies.fees,
     movies.country, movies.rate, movies.duration, movies.plot_description
     from movies where movies.year >= input_year;
 END IF;

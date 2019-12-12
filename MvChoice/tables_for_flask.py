@@ -79,8 +79,8 @@ def create_table_view_for_flask(table_type,table_data):
     items = []
 
     if table_type == 'movies':
-        print(type(table_data))
         for movie in table_data:
+            print(movie)
             items.append(Movie(movie.id,movie.name,movie.year,movie.budget,
             movie.fees,movie.country,movie.rate,movie.duration,movie.plot_description))
         table = Movie_Table(items)
