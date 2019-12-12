@@ -1,3 +1,5 @@
+
+-- views
 Create Or Replace View Movie_Info As
 Select * From movies;
 
@@ -13,6 +15,8 @@ Select * From movie_genre;
 Create Or Replace View Genre_Info As
 Select * From genres;
 
+
+-- drop and clear all tables
 CREATE OR REPLACE PROCEDURE drop_all_Tables()
 LANGUAGE plpgsql
 AS $$
@@ -23,7 +27,7 @@ BEGIN
     DROP TABLE "actors" CASCADE;
     DROP TABLE "movies" CASCADE;
 
-    RAISE NOTICE 'Were dropped tables: movie_genre, roles, genres, mactors, movies';
+    RAISE NOTICE 'Were dropped tables: movie_genre, roles, genres, actors, movies';
 END;
 $$;
 
@@ -45,6 +49,9 @@ BEGIN
     RAISE NOTICE 'Were cleaned tables: movie_genre, roles, genres, mactors, movies';
 END
 $$;
+
+
+-- delete by non primary key and primary key
 
 CREATE OR REPLACE FUNCTION delete_data_by_name(tblname Varchar(50), object_name Varchar(80))
 returns integer
@@ -105,21 +112,21 @@ BEGIN
   END IF;
   IF tblName = table3 THEN
     DELETE FROM movie_genre WHERE movie_genre.g_id = ID_to_delete;
-    RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table1;
+    RAISE NOTICE 'The dependence (%) row was removed from ( %) !' , ID_to_delete, table1;
     DELETE FROM genres WHERE genres.id = ID_to_delete;
     RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table3;
     return 1;
   END IF;
   IF tblName = table4 THEN
       DELETE FROM roles WHERE roles.a_id = ID_to_delete;
-      RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table2;
+      RAISE NOTICE 'The dependence (%) row was removed from ( %) !' , ID_to_delete, table2;
       DELETE FROM actors WHERE actors.id = ID_to_delete;
       RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table4;
       return 1;
   END IF;
   IF tblName = table5 THEN
       DELETE FROM roles WHERE roles.f_id = ID_to_delete;
-      RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table2;
+      RAISE NOTICE 'The dependence (%) row was removed from ( %) !' , ID_to_delete, table2;
       DELETE FROM movies WHERE movies.id = ID_to_delete;
       RAISE NOTICE 'The (%) row was removed from ( %) !' , ID_to_delete, table5;
       return 1;
@@ -128,7 +135,7 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-
+ -- help function
 CREATE OR REPLACE FUNCTION getId_by_Name(table_name Varchar(80), object_name Varchar(80))
 returns integer
 AS
@@ -152,8 +159,8 @@ $func$ LANGUAGE plpgsql;
 
 --Inser into tables
 
-CREATE OR REPLACE function insertIntoMovie( Movie_Name varchar(35), year integer,budget integer,
-                                            fees integer, country varchar(35), rate float, duration integer,
+CREATE OR REPLACE function insertIntoMovie( Movie_Name varchar(35), year integer,budget float,
+                                            fees float, country varchar(35), rate float, duration integer,
                                             plot_description varchar(80))
 returns integer
 AS
@@ -187,7 +194,7 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE function insertIntoActors(name varchar(50),birth_date integer,nationality varchar(50),gender varchar(50),age integer)
+CREATE OR REPLACE function insertIntoActors(name varchar(50),birth_date varchar,nationality varchar(50),gender varchar(50),age integer)
 returns integer
 AS
 $func$
@@ -208,3 +215,166 @@ BEGIN
      return 1;
 END
 $func$ LANGUAGE plpgsql;
+
+-- Search by non primary key
+
+CREATE OR REPLACE function Search_Actor_By_Name(object_name varchar)
+returns table(
+    name varchar,
+    birth_date varchar,
+    nationality varchar,
+    gender varchar,
+    age integer
+)
+AS $$
+BEGIN
+    return query select  actors.name, actors.birth_date,
+    actors.nationality, actors.gender, actors.age
+    from actors where
+    actors.name ILIKE object_name;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE function Search_Actor_By_Nationality(input_nationality varchar)
+returns table(
+    name varchar,
+    birth_date varchar,
+    nationality varchar,
+    gender varchar,
+    age integer
+)
+AS $$
+BEGIN
+    return query select  actors.name, actors.birth_date,
+    actors.nationality, actors.gender, actors.age
+    from actors where
+    actors.nationality ILIKE input_nationality;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE function Search_Actor_By_Age(input_age integer, comparison_type varchar)
+returns table(
+    name varchar,
+    birth_date varchar,
+    nationality varchar,
+    gender varchar,
+    age integer
+)
+AS $$
+BEGIN
+if comparison_type = 'less' then
+    return query select  actors.name, actors.birth_date,
+    actors.nationality, actors.gender, actors.age
+    from actors where
+    actors.age <= input_age;
+END IF;
+if comparison_type = 'greater' then
+    return query select  actors.name, actors.birth_date,
+    actors.nationality, actors.gender, actors.age
+    from actors where
+    actors.age >= input_age;
+END IF;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE function Search_Movie_By_Name(object_name varchar)
+returns table(
+    name varchar,
+    year integer,
+    budget float,
+    fees float,
+    country varchar,
+    rate float,
+    duration integer,
+    plot_description varchar
+)
+AS $$
+BEGIN
+    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    movies.country, movies.rate, movies.duration, movies.plot_description
+    from movies where
+    movies.name ILIKE object_name;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE function Search_Movie_By_Plot( input_plot_description varchar)
+returns table(
+    name varchar,
+    year integer,
+    budget float,
+    fees float,
+    country varchar,
+    rate float,
+    duration integer,
+    plot_description varchar
+)
+AS $$
+BEGIN
+    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    movies.country, movies.rate, movies.duration, movies.plot_description
+    from movies where movies.plot_description ILIKE input_plot_description;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE function Search_Movie_By_Year(input_year integer, comparison_type varchar)
+returns table(
+    name varchar,
+    year integer,
+    budget float,
+    fees float,
+    country varchar,
+    rate float,
+    duration integer,
+    plot_description varchar
+)
+AS $$
+BEGIN
+if comparison_type = 'less' then
+    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    movies.country, movies.rate, movies.duration, movies.plot_description
+    from movies where movies.year <= input_year;
+END IF;
+if comparison_type = 'greater' then
+    return query select  movies.name, movies.year, movies.budget, movies.fees,
+    movies.country, movies.rate, movies.duration, movies.plot_description
+    from movies where movies.year >= input_year;
+END IF;
+END; $$
+LANGUAGE plpgsql;
+
+-- Update row
+
+
+CREATE OR REPLACE function Update_Fees(target_id integer, add_sum float)
+returns void
+AS $$
+BEGIN
+        UPDATE movies SET fees = movies.fees + add_sum
+          WHERE movies.id = id;
+END; $$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE function Update_Rate(target_id integer, change_value float, change_type varchar)
+returns void
+AS $$
+declare
+current_rate float;
+BEGIN
+select movies.rate into current_rate from movies where movies.id = target_id;
+raise notice 'The current rate before %' , current_rate;
+if change_type = '+' and ((current_rate + change_value) <= 10.0)
+then
+        UPDATE movies SET rate = rate + change_value
+          WHERE  id = target_id;
+end if;
+if change_type = '-' and (current_rate - change_value >= 0.0)
+then
+        UPDATE movies SET rate = rate - change_value
+          WHERE id = target_id ;
+end if;
+select movies.rate into current_rate from movies where movies.id = target_id;
+raise notice 'The current  rate after %' , current_rate;
+
+END; $$
+LANGUAGE plpgsql;
