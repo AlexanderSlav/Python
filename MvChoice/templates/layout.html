@@ -33,21 +33,13 @@ body {
                 <button   class="subnavbtn">Tables <i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
                   <a href="{{ url_for('tables_choice') }}">View Data</a>
-                  <div class="subnav">
-                  <button   class="subnavbtn">Search <i class="fa fa-caret-down"></i></button>
-                  <div class="subnav-content">
-                      <a href="{{ url_for('search_m') }}">Search In Movies</a>
-                      <a href="{{ url_for('search_a') }}">Search In Actors</a>
-                  </div>
-                </div>
-                  <button   class="subnavbtn">Insert <i class="fa fa-caret-down"></i></button>
-                  <div class="subnav-content">
-                      <a href="{{ url_for('search_m') }}">Insert In Movies</a>
-                      <a href="{{ url_for('search_a') }}">Insert In Actors</a>
-                  </div>
-
-                  <a href="#careers">Update</a>
-                  <a href="#careers">Delete</a>
+                  <a href="{{ url_for('search_m') }}">Search In Movies</a>
+                  <a href="{{ url_for('search_a') }}">Search In Actors</a>
+                  <a href="{{ url_for('get_movie_parameters') }}">Insert In Movies</a>
+                  <a href="{{ url_for('get_actor_parameters') }}">Insert In Actors</a>
+                  <a href="{{ url_for('get_movie_parameters') }}">Update  Movies</a>
+                  <a href="{{ url_for('get_actor_parameters') }}">Update Actors</a>
+                  <a href="{{ url_for('get_delete_parameters') }}">Delete (Danger Zone)</a>
                 </div>
               </div>
               <div class="subnav">

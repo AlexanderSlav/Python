@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tables
+{% endblock %}
+
+{% block body %}
+  <div class='text'>
+    <p>Choose parameter to add movies !</p>
+     <form action="{{ url_for('insert_movie') }}" method= "post" >
+            <input type="text" name="name_value" placeholder="Name of movie" title="Type parameter value" required>
+            <input type="number" step="any" name="year_value" placeholder="Release Year" title="Type parameter value" required>
+            <input type="number" step="any" name="budget_value" placeholder="Budget" title="Type parameter value" required>
+            <input type="number" step="any" name="fees_value" placeholder="Fees" title="Type parameter value" required>
+            <input type="text" name="country_value" placeholder="Production Country" title="Type parameter value" required>
+            <input type="number" step="any" name="rate_value" placeholder="Rate" title="Type parameter value" required>
+            <input type="number"  step="any"  name="duration_value" placeholder="Duration" title="Type parameter value" required>
+            <input type="text" name="plot_description_value" placeholder="Plot Description" title="Type parameter value" required>
+
+        <button class="button">Insert</button>
+    </form>
+    </div>
+{% endblock %}

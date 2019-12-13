@@ -35,16 +35,16 @@ CREATE OR REPLACE PROCEDURE clear_all_Tables()
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    DELETE FROM "movie_genre" CASCADE;
-    ALTER SEQUENCE "movie_genre_id_seq" restart with 1;
-    DELETE FROM "roles" CASCADE;
-    ALTER SEQUENCE "roles_id_seq" restart with 1;
-    DELETE FROM "genres" CASCADE;
-    ALTER SEQUENCE "genres_id_seq" restart with 1;
-    DELETE FROM "actors" CASCADE;
-    ALTER SEQUENCE "actors_id_seq" restart with 1;
-    DELETE FROM "movies" CASCADE;
-    ALTER SEQUENCE "movie_id_seq" restart with 1;
+    DELETE FROM movie_genre CASCADE;
+    ALTER SEQUENCE movie_genre_id_seq restart with 1;
+    DELETE FROM roles CASCADE;
+    ALTER SEQUENCE roles_id_seq restart with 1;
+    DELETE FROM genres CASCADE;
+    ALTER SEQUENCE genres_id_seq restart with 1;
+    DELETE FROM actors CASCADE;
+    ALTER SEQUENCE actors_id_seq restart with 1;
+    DELETE FROM movies  CASCADE;
+    ALTER SEQUENCE movies_id_seq restart with 1;
 
     RAISE NOTICE 'Were cleaned tables: movie_genre, roles, genres, mactors, movies';
 END

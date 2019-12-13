@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tables
+
+{% endblock %}
+
+{% block body %}
+
+  <div class='text'>
+    <p>Delete from table !</p>
+     <form action="{{ url_for('delete_object') }}" method= "post" >
+       <select class="form-control" name="table_type">
+                <option value="movies">Movies</option>
+                <option value="actors">Actors</option>
+       </select>
+            <input type="text" name="object_to_delete" placeholder="Object name" title="Type parameter value" required>
+
+        <button class="button">Insert</button>
+      </form>
+      <form action="{{ url_for('delete_object') }}" method= "post" >
+        <button class="button1 button3" onclick="return confirm('Are you sure?????')">CLEAR ALL TABLES!</button>
+      </form>
+    </div>
+{% endblock %}

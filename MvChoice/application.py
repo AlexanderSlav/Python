@@ -23,6 +23,7 @@ def index():
     return render_template('welcome_page.html')
 
 
+
 @app.route("/view_tables",methods=["POST","GET"])
 def tables_view():
     table = request.form.get("table_name")
@@ -47,6 +48,73 @@ def tables_view():
         html_table = create_table_view_for_flask(table, movies)
         return render_template('tables_window.html',html_table = html_table)
     return render_template('error.html',table = table, message='There is no such table -> ')
+
+
+@app.route("/get_insert_actors_parameters")
+def get_actor_parameters():
+    return render_template('insert_actor.html')
+
+@app.route("/get_delete_parameters")
+def get_delete_parameters():
+    return render_template('delete.html')
+
+@app.route("/delete_object",methods=["POST","GET"])
+def delete_object():
+    html_table = None
+    table_type = request.form.get("table_type")
+    object_to_delete = request.form.get("object_to_delete")
+    if table_type:
+        result = db.execute(f"select delete_data_by_name(\'{table_type}\',\'{object_to_delete}\')").fetchall()
+
+    else:
+        result = db.execute("call clear_all_Tables()")
+        # new_films = db.execute("select  * from Movie_Info;").fetchall()
+        # html_table = create_table_view_for_flask(table_type, new_films)
+    if table_type == 'actors':
+        new_actors = db.execute("select  * from Actors_Info;").fetchall()
+        html_table = create_table_view_for_flask(table_type, new_actors)
+    elif table_type == 'movies':
+        new_films = db.execute("select  * from Movie_Info;").fetchall()
+        html_table = create_table_view_for_flask(table_type, new_films)
+    db.commit()
+
+
+
+    return render_template('tables_window.html',html_table = html_table)
+
+
+@app.route("/insert_actor_in_db",methods=["POST","GET"])
+def insert_actor():
+    search_parameters = [request.form.get(name) for name in ("name_value","birth_date","nationality",
+                                                            "gender","age")]
+
+
+    result = db.execute(f"select insertIntoActors(\'{search_parameters[0]}\',\'{search_parameters[1]}\',\'{search_parameters[2]}\',\'{search_parameters[3]}\',{search_parameters[4]})").fetchall()
+    table = 'actors'
+    new_actors = db.execute("select  * from Actors_Info;").fetchall()
+    html_table = create_table_view_for_flask(table, new_actors)
+    db.commit()
+    return render_template('tables_window.html',html_table = html_table)
+
+
+@app.route("/get_insert_movies_parameters")
+def get_movie_parameters():
+    return render_template('insert_m.html')
+
+@app.route("/insert_movie_in_db",methods=["POST","GET"])
+def insert_movie():
+    search_parameters = [request.form.get(name) for name in ("name_value","year_value","budget_value",
+                                                            "fees_value","country_value","rate_value",
+                                                            "duration_value","plot_description_value")]
+
+
+    result = db.execute(f"select insertIntoMovie(\'{search_parameters[0]}\',{search_parameters[1]},{search_parameters[2]},{search_parameters[3]}, \'{search_parameters[4]}\',{search_parameters[5]},{search_parameters[6]},\'{search_parameters[7]}\')").fetchall()
+    table = 'movies'
+    new_movies = db.execute("select  * from Movie_Info;").fetchall()
+    html_table = create_table_view_for_flask(table, new_movies)
+    db.commit()
+    return render_template('tables_window.html',html_table = html_table)
+
 
 
 @app.route("/tables")
