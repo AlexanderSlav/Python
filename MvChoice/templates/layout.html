@@ -37,16 +37,15 @@ body {
                   <a href="{{ url_for('search_a') }}">Search In Actors</a>
                   <a href="{{ url_for('get_movie_parameters') }}">Insert In Movies</a>
                   <a href="{{ url_for('get_actor_parameters') }}">Insert In Actors</a>
-                  <a href="{{ url_for('get_movie_parameters') }}">Update  Movies</a>
-                  <a href="{{ url_for('get_actor_parameters') }}">Update Actors</a>
+                  <a href="{{ url_for('update_option_movie') }}">Update  Movies</a>
                   <a href="{{ url_for('get_delete_parameters') }}">Delete (Danger Zone)</a>
                 </div>
               </div>
               <div class="subnav">
                 <button  class="subnavbtn">Databases <i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
-                  <a href="#bring">Create Database</a>
-                  <a href="#deliver">Delete Database</a>
+                  <a href="{{ url_for('get_database_name') }}">Create Database</a>
+                  <a href="{{ url_for('drop_database_name') }}">Delete Database</a>
                 </div>
               </div>
               <div class="subnav">

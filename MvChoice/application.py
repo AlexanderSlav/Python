@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from credentials import *
 from tables_for_flask import *
+from sqlalchemy_utils.functions import database_exists
 tables = [{'name':'movies'},{'name':'actors'},{'name':'roles'}
             ,{'name':'genres'},{'name':'genre of the movie'}]
 movies_parametres = [{'name':name } for name in ['Name', 'Year','Plot']]
@@ -22,6 +23,69 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template('welcome_page.html')
 
+@app.route("/get_database_name")
+def get_database_name():
+    return render_template('get_database_name_to_create.html')
+
+
+@app.route("/update_movie",methods=["POST","GET"])
+def update_movie():
+    option = request.form.get("update_option")
+    value = request.form.get("param_value")
+    t_id = request.form.get("target_id")
+    if option == 'rate':
+        if value[0] in {'+', '-'}:
+            sign, value = value[0], value[1]
+        else:
+            sign, value = '+', value
+        result = db.execute(f"select  * from Update_Rate({t_id},{value},\'{sign}\');").fetchall()
+        db.commit()
+        return render_template('success.html')
+    elif option == 'fees':
+        result = db.execute(f"select  * from Update_Fees({t_id},{value});").fetchall()
+        db.commit()
+        return render_template('success.html')
+    else:
+        return render_template('error.html')
+
+
+@app.route("/update_option")
+def update_option_movie():
+    return render_template('choose_update_variable.html')
+
+@app.route("/drop_database_name")
+def drop_database_name():
+    return render_template('get_database_name_to_delete.html')
+
+@app.route("/create_database",methods=["POST","GET"])
+def create_database():
+    db_name = request.form.get("database_name")
+    db_name = db_name.lower()
+    conn = engine.connect()
+    conn.execute("COMMIT")
+    credentials.new_database(db_name)
+    if database_exists(credentials.DB_CONN_URI_NEW):
+        print('Database already exists')
+        conn.close()
+        return  render_template('error.html')
+    conn.execute("CREATE DATABASE %s" % db_name)
+    conn.close()
+    return render_template('success.html')
+
+@app.route("/drop_database", methods=["POST", "GET"])
+def drop_database():
+    db_name = request.form.get('database_name')
+    db_name = db_name.lower()
+    conn = engine.connect()
+    conn.execute("COMMIT")
+    credentials.new_database(db_name)
+    if database_exists(credentials.DB_CONN_URI_NEW):
+        conn.execute("DROP DATABASE %s" % db_name)
+        conn.close()
+        return render_template('success.html')
+    else:
+        conn.close()
+        return render_template('error.html')
 
 
 @app.route("/view_tables",methods=["POST","GET"])
