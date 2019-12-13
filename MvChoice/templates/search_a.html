@@ -6,7 +6,7 @@
 
 {% block body %}
   <div class='text'>
-    <p>Choose table to view data inside</p>
+    <p>Choose parameter to find actors !</p>
      <form action="{{ url_for('actors_search') }}" method= "post" >
         <select class="form-control" name="param_name">
               {% for parameter in parameters %}

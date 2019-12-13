@@ -33,12 +33,19 @@ body {
                 <button   class="subnavbtn">Tables <i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
                   <a href="{{ url_for('tables_choice') }}">View Data</a>
+                  <div class="subnav">
                   <button   class="subnavbtn">Search <i class="fa fa-caret-down"></i></button>
                   <div class="subnav-content">
                       <a href="{{ url_for('search_m') }}">Search In Movies</a>
                       <a href="{{ url_for('search_a') }}">Search In Actors</a>
                   </div>
-                  <a href="#careers">Insert</a>
+                </div>
+                  <button   class="subnavbtn">Insert <i class="fa fa-caret-down"></i></button>
+                  <div class="subnav-content">
+                      <a href="{{ url_for('search_m') }}">Insert In Movies</a>
+                      <a href="{{ url_for('search_a') }}">Insert In Actors</a>
+                  </div>
+
                   <a href="#careers">Update</a>
                   <a href="#careers">Delete</a>
                 </div>

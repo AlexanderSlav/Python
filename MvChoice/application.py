@@ -68,9 +68,7 @@ def search_a():
 def mov_search():
 
     search_parameter = request.form.get("param_name")
-    print(search_parameter)
     search_value = request.form.get("param_value")
-    print(search_value)
     table = 'movies'
     if search_parameter == 'Name':
         result = db.execute(f"select  * from Search_Movie_By_Name(\'%{search_value}%\');").fetchall()
@@ -80,19 +78,41 @@ def mov_search():
         result = db.execute(f"select * from  Search_Movie_By_Plot(\'%{search_value}%\');").fetchall()
         html_table = create_table_view_for_flask(table, result)
         return render_template('tables_window.html',html_table = html_table)
-
-@app.route("/search_in_actors_by_exac_param")
-def actors_search():
-        search_parameter = request.form.get("param_name")
-        print(search_parameter)
-        search_value = request.form.get("param_value")
-        print(search_value)
-        table = 'movies'
-        if search_parameter == 'Name':
-            result = db.execute(f"select  * from Search_Movie_By_Name(\'%{search_value}%\');").fetchall()
+    if search_parameter == 'Year':
+            if search_value[0] == '<':
+                search_value = search_value[1:]
+                comparison_type = 'less'
+            elif search_value[0] == '>':
+                search_value = search_value[1:]
+                comparison_type = 'greater'
+            else:
+                comparison_type = 'equal'
+            result = db.execute(f"select * from  Search_Movie_By_Year({search_value},\'{comparison_type}\');").fetchall()
             html_table = create_table_view_for_flask(table, result)
             return render_template('tables_window.html',html_table = html_table)
-        if search_parameter == 'Plot':
-            result = db.execute(f"select * from  Search_Movie_By_Plot(\'%{search_value}%\');").fetchall()
+
+@app.route("/search_in_actors_by_exac_param",methods=["POST","GET"])
+def actors_search():
+        search_parameter = request.form.get("param_name")
+        search_value = request.form.get("param_value")
+        table = 'actors'
+        if search_parameter == 'Name':
+            result = db.execute(f"select  * from Search_Actor_By_Name(\'%{search_value}%\');").fetchall()
+            html_table = create_table_view_for_flask(table, result)
+            return render_template('tables_window.html',html_table = html_table)
+        if search_parameter == 'Age':
+            if search_value[0] == '<':
+                search_value = search_value[1:]
+                comparison_type = 'less'
+            elif search_value[0] == '>':
+                search_value = search_value[1:]
+                comparison_type = 'greater'
+            else:
+                comparison_type = 'equal'
+            result = db.execute(f"select * from  Search_Actor_By_Age({search_value},\'{comparison_type}\');").fetchall()
+            html_table = create_table_view_for_flask(table, result)
+            return render_template('tables_window.html',html_table = html_table)
+        if search_parameter == 'Nationality':
+            result = db.execute(f"select  * from Search_Actor_By_Nationality(\'%{search_value}%\');").fetchall()
             html_table = create_table_view_for_flask(table, result)
             return render_template('tables_window.html',html_table = html_table)

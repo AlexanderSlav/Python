@@ -220,6 +220,7 @@ $func$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Actor_By_Name(object_name varchar)
 returns table(
+    id integer,
     name varchar,
     birth_date varchar,
     nationality varchar,
@@ -228,7 +229,7 @@ returns table(
 )
 AS $$
 BEGIN
-    return query select  actors.name, actors.birth_date,
+    return query select  actors.id, actors.name, actors.birth_date,
     actors.nationality, actors.gender, actors.age
     from actors where
     actors.name ILIKE object_name;
@@ -237,6 +238,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Actor_By_Nationality(input_nationality varchar)
 returns table(
+    id integer,
     name varchar,
     birth_date varchar,
     nationality varchar,
@@ -245,7 +247,7 @@ returns table(
 )
 AS $$
 BEGIN
-    return query select  actors.name, actors.birth_date,
+    return query select  actors.id, actors.name, actors.birth_date,
     actors.nationality, actors.gender, actors.age
     from actors where
     actors.nationality ILIKE input_nationality;
@@ -254,6 +256,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE function Search_Actor_By_Age(input_age integer, comparison_type varchar)
 returns table(
+    id integer,
     name varchar,
     birth_date varchar,
     nationality varchar,
@@ -262,14 +265,20 @@ returns table(
 )
 AS $$
 BEGIN
+if comparison_type = 'equal' then
+    return query select  actors.id, actors.name, actors.birth_date,
+    actors.nationality, actors.gender, actors.age
+    from actors where
+    actors.age = input_age;
+END IF;
 if comparison_type = 'less' then
-    return query select  actors.name, actors.birth_date,
+    return query select  actors.id, actors.name, actors.birth_date,
     actors.nationality, actors.gender, actors.age
     from actors where
     actors.age <= input_age;
 END IF;
 if comparison_type = 'greater' then
-    return query select  actors.name, actors.birth_date,
+    return query select actors.id, actors.name, actors.birth_date,
     actors.nationality, actors.gender, actors.age
     from actors where
     actors.age >= input_age;
@@ -332,6 +341,11 @@ returns table(
 )
 AS $$
 BEGIN
+if comparison_type = 'equal' then
+    return query select movies.id, movies.name, movies.year, movies.budget, movies.fees,
+    movies.country, movies.rate, movies.duration, movies.plot_description
+    from movies where movies.year = input_year;
+END IF;
 if comparison_type = 'less' then
     return query select movies.id, movies.name, movies.year, movies.budget, movies.fees,
     movies.country, movies.rate, movies.duration, movies.plot_description
